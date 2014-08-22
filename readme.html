@@ -1,0 +1,291 @@
+<html>
+<body>
+<h2>
+<a href="file:///E:\dev\Xamarin.forms-demo\demo1__xamarin.forms\readme.html">README</a>:
+Demo1 for using C# and Xamarin.Forms. The supported UI platforms are Android, Windows Phone and iOS.
+</h2>
+<p>
+ZAG generated a source tree containing customized demo apps
+using a Portable Class Library core, and platform specific apps
+to host the Xamarin.Forms pages.
+These apps will help you get started using the ZSS Client SDK
+and edit your data from various devices.
+</p>
+<p>
+Either Xamarin Studio or Visual Studio can be used to compile 
+and run the code. Some project files need certain Visual Studio
+versions to compile.  Any unsupported project types can be 
+ignored.
+</p>
+<p>
+These projects rely on NuGet to download the Xamarin and Zumero 
+dependencies.  It may download an older version, and you can install 
+any dependency updates by following the <a href=http://docs.nuget.org/docs/start-here/using-the-package-manager-console#Updating_a_Package>NuGet update instructions</a>.
+
+</p>
+
+<h3>App Directory</h3>
+<p>
+ZAG created the following directory for this app:
+</p>
+<pre>
+  E:\dev\Xamarin.forms-demo\demo1__xamarin.forms\
+</pre>
+<p>
+All files/directories created for this app are within it:
+</p>
+<table>
+  <tr>
+    <td valign="top"><tt>readme.html</tt>
+      <ul>
+        <li>This file.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><tt>demo.sln</tt>
+      <ul>
+        <li>This is the Xamarin Studio solution file for all platforms.</b></li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><tt>demo.Shared/</tt>
+      <ul>
+        <li>This directory contains a project file and the shared Xamarin.Forms
+		code.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><tt>demo.Shared/demo.Shared.csproj</tt>
+      <ul>
+        <li>This is the project file for the core Portable Class Library.</li>
+      </ul>
+    </td>
+  </tr>
+    <tr>
+    <td valign="top"><tt>demo.Shared/Data/</tt>
+      <ul>
+        <li>This directory contains a service which provides access to the SQLite database for 
+		operations on the Model data types.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><tt>demo.Shared/Models/</tt>
+      <ul>
+        <li>This directory contains generated objects compatible with the SQLite-Net ORM layer
+		that are useful for binding to UI elements, as well as performing database queries and operations.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><tt>demo.Shared/Views/</tt>
+      <ul>
+        <li>This directory contains only the RootNavigationPage that handles navigation 
+		among the other sub-pages defined under xaml.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><tt>demo.Shared/xaml/</tt>
+      <ul>
+        <li>This directory contains the XAML definitions and code-behind files for 
+		all of the pages in the app.</li>
+      </ul>
+    </td>
+  </tr>
+  
+  <tr>
+    <td valign="top"><tt>demo.Android/</tt>
+      <ul>
+        <li>This directory contains the platform-specific code to 
+		host the app.  The goal of Xamarin.Forms is to have as little 
+		platform-specific code as possible.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><tt>demo.iOS/</tt>
+      <ul>
+        <li>This directory contains the platform-specific code to 
+		host the app.  The goal of Xamarin.Forms is to have as little 
+		platform-specific code as possible.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><tt>demo.WinPhone/</tt>
+      <ul>
+        <li>This directory contains the platform-specific code to 
+		host the app.  The goal of Xamarin.Forms is to have as little 
+		platform-specific code as possible.</li>
+      </ul>
+    </td>
+  </tr>  
+</table>
+
+
+<h3>App Highlights</h3>
+<p>
+This app contains:
+</p>
+<ul>
+ <li>A "Sync" button on the ActionBar 
+  that will connect to your ZSS Server and sync your local
+  ZSS database with the MSSQL database on the server.</li>
+ <li>A full authentication dialog.<br/>
+  (<i>This version shows all of the various authentication
+  fields for debugging purposes.  In your production app,
+  you may want to hard-code various fields and omit some of these
+  fields from the dialog.</i>)
+  </li>
+ <li>A "Tables" button on the ActionBar of the Welcome Page
+  that will show you a list of all of tables that were present in the
+  database when this app was generated.
+  Clicking on an individual table from this list will show you
+  a roughly formatted list containing rows from the table.
+  Clicking on a row from this list will show you a detailed
+  view of that row in the database.</li>
+ <li>Insert and Update functionality to make changes in the app
+  that can be Synced up to the server.</li>
+ <li>A Revert Changes button that will let you undo all changes
+  that have been made in the app since the last Sync.</li>
+</ul>
+<p>
+The source code illustrates the following concepts:
+</p>
+<ul>
+  <li>A functional ZumeroSync demo showing the use of the Zumero Client
+    SDK for Xamarin.Forms on Android, iOS and Windows Phone using C# and Xamarin Studio.</li>
+  <li>Use of a custom class for each SQL table that knows about the table schema.</li>
+  <li>INSERT and UPDATE operations to modify data in the local SQLite database.</li>
+  <li>Custom column formatting routines that know about column datatypes.</li>
+</ul>
+<p>
+The source code does not handle:
+</p>
+<ul>
+  <li>Database operations for DELETE.</li>
+  <li>Custom display widgets using column type information,
+  such as a date/time picker.</li>
+  <li>Joins</li>
+</ul>
+
+<h3>Database Information</h3>
+<p>
+This demo app includes the following tables from your ZSS database.
+The left column lists the table names as they exist in the SQLite database.
+The middle column lists the corresponding name used in the source code
+of the demo app; this alternate name is used only when the sql table name contains
+characters not allowed in variables or filenames.
+</p>
+<center>
+<table cellspacing="0" cellpadding="5" border="1">
+  <tr><th>SQLite Name</th><th>Variable Name</th><th>Columns</th></tr>
+<tr><td>countries</td><td>countries</td><td align="right">15</tr>
+<tr><td>presidents</td><td>presidents</td><td align="right">17</tr>
+<tr><td>scratch</td><td>scratch</td><td align="right">8</tr>
+<tr><td>chemical_elements</td><td>chemical_elements</td><td align="right">16</tr>
+</table>
+</center>
+
+
+<h3>Build Prerequisites (Android)</h3>
+<p>
+You also need Xamarin Studio 5 to build this demo for Android.
+This is available from <a href="http://xamarin.com/">http://xamarin.com/</a>.
+</p>
+<p>
+You will also need either a paid or trial license for Xamarin Studio
+because the generated demo app calls native SQLite routines.
+</p>
+
+
+<h3>Build Prerequisites (iOS)</h3>
+<p>
+To build this iOS app for iPhone/iPad you will need
+an OS X system running 10.8 or 10.9 and Xcode 5.
+These are now available from the OS X App Store.
+</p>
+<p>
+You will also need Xamarin Studio 5.
+This is available from <a href="http://xamarin.com/">http://xamarin.com/</a>.
+</p>
+<p>
+You will also need either a paid or trial license for Xamarin Studio
+because the generated demo app calls native SQLite routines.
+</p>
+
+
+<h3>Build Instructions</h3>
+<p>
+Launch Xamarin Studio by double-clicking on:
+</p>
+<pre>
+  E:\dev\Xamarin.forms-demo\demo1__xamarin.forms\demo.sln
+</pre>
+<p>
+You should always be able to build and run the app
+in the iOS Simulator.  To run it on an actual iOS device
+you will need to be a Registered Apple Developer.
+</p>
+
+<p>
+
+<h3>Errors</h3>
+<p>
+Xamarin Studio may report errors when building or running a newly
+generated project.  Here are some common reasons:
+</p>
+
+<center>
+<table cellspacing="0" cellpadding="5" border="1" width="80%">
+<tr>
+<td valign="top">iOS</td>
+<td valign="top">
+  <tt><b>IOHIDLib __dealloc</b></tt>
+  <p>
+  You may get the following error messages in the Xamarin Studio
+  application output window when running the app in the 7.1
+  iOS simulator.  These are believed to be a problem in an
+  Apple system library and may be ignored.
+  </p>
+<pre>
+  /System/Library/Extensions/IOHIDFamily.kext/Contents/
+  PlugIns/IOHIDLib.plugin/Contents/MacOS/IOHIDLib:
+  dlopen(/System/Library/Extensions/IOHIDFamily.kext/Contents/
+  PlugIns/IOHIDLib.plugin/Contents/MacOS/IOHIDLib, 262):
+  Symbol not found: __dealloc Referenced
+</pre>
+  <p>
+  For more information, see
+  <a href="https://bugzilla.xamarin.com/show_bug.cgi?id=14873">Xamarin Bug Report 14873</a>.
+  </p>
+</td>
+</tr>
+</table>
+</center>
+
+
+<h3>App Generation Information</h3>
+<p>
+Generated by ZAG version: 1.4.0.1040 (16e309bf48ec60b32e2d6a4d46c5c007605f061d)
+</p>
+<p>
+ZAG template: <tt>demo1__xamarin.forms</tt>
+</p>
+<p>
+DBFile signature: 0942CBD60E0E608D7CDB5715026D9E21F9B541EB
+</p>
+<p>
+Local ZSS database:
+</p>
+<pre>
+  C:\Users\jeremy.CDESG\Desktop\demo2.zssdb
+</pre>
+
+</body>
+</html>
+

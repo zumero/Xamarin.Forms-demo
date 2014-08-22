@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+					   xmlns:c="clr-namespace:demo.xaml;assembly=demo"
+					   x:Class="demo.xaml.SyncPage"
+             Padding="20"
+			 Title="Sync">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <c:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <StackLayout Spacing="10">
+    <ActivityIndicator IsEnabled="true" IsVisible="{Binding IsSyncInProgress}" IsRunning="{Binding IsSyncInProgress}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+    <StackLayout Spacing="10" IsVisible="{Binding IsSyncInProgress, Converter={StaticResource inverseBooleanConverter} }" >
+      <Entry Placeholder="Server URL:" Keyboard="Url" Text="{Binding Params.URL}"/>
+      <Entry Placeholder="DBFile:"  Text="{Binding Params.DBFile}"/>
+      <StackLayout Spacing="10" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        <Label Text="Send Auth Information" YAlign="Center"/>
+        <Switch IsToggled="{Binding Params.SendAuth}" HorizontalOptions="EndAndExpand"/>
+      </StackLayout>
+        <Entry Placeholder="Scheme:" Text="{Binding Params.Scheme}" IsVisible="{Binding Params.SendAuth}"/>
+        <Entry Placeholder="User:"  Text="{Binding Params.User}" IsVisible="{Binding Params.SendAuth}"/>
+        <Entry Placeholder="Password:"  Text="{Binding Params.Password}" IsVisible="{Binding Params.SendAuth}"/>
+		<Button Text="Sync Now" Clicked="OnSyncButtonClicked" />"
+    </StackLayout>
+  </StackLayout>
+</ContentPage>

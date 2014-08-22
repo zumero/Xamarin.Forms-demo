@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+					   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+					   x:Class="demo.xaml.TablesPage"
+             Padding="20"
+			 Title="Tables">
+  <StackLayout Spacing="10">
+    <ListView ItemsSource="{Binding Tables}" ItemTapped="ItemTapped">
+		<ListView.ItemTemplate>
+			<DataTemplate>
+			  <ViewCell>
+				<Label Text="{Binding .}"
+               HorizontalOptions="StartAndExpand"
+               VerticalOptions="CenterAndExpand"
+               YAlign="Center">
+					<Label.Font>
+					  <OnPlatform x:TypeArguments="Font"
+						  WinPhone="Large" />
+					</Label.Font>
+				  </Label>
+			  </ViewCell>
+			</DataTemplate>  
+		</ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
+</ContentPage>
