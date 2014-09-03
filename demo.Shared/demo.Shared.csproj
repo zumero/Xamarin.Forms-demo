@@ -5,7 +5,7 @@
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F4F30BE3-4619-45F5-AC5A-4038239D63B7}</ProjectGuid>
+    <ProjectGuid>{F9BE5754-15F6-417A-820B-F08EB7EF37D5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>demo</RootNamespace>
@@ -81,7 +81,7 @@
       <HintPath>..\packages\Xamarin.Forms.1.2.2.6243\lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Zumero">
-      <HintPath>..\packages\Zumero.1.4.1\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch\Zumero.dll</HintPath>
+      <HintPath>..\packages\Zumero.1.5.0.2157\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch\Zumero.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

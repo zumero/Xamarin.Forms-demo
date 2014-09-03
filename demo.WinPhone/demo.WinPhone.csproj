@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9DC6992D-F199-4147-A149-6C94F7E14B56}</ProjectGuid>
+    <ProjectGuid>{0DEBA3BA-7331-4CFC-B64A-990BBE72CAA0}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -204,9 +204,9 @@
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <Error Condition="!Exists('..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets'))" />
     <Error Condition="!Exists('..\packages\SQLitePCL.raw_basic.0.5.0\build\wp8\SQLitePCL.raw_basic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCL.raw_basic.0.5.0\build\wp8\SQLitePCL.raw_basic.targets'))" />
-    <Error Condition="!Exists('..\packages\Zumero.1.4.1\build\wp8\Zumero.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Zumero.1.4.1\build\wp8\Zumero.targets'))" />
+    <Error Condition="!Exists('..\packages\Zumero.1.5.0.2157\build\wp8\Zumero.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Zumero.1.5.0.2157\build\wp8\Zumero.targets'))" />
   </Target>
   <Import Project="..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
   <Import Project="..\packages\SQLitePCL.raw_basic.0.5.0\build\wp8\SQLitePCL.raw_basic.targets" Condition="Exists('..\packages\SQLitePCL.raw_basic.0.5.0\build\wp8\SQLitePCL.raw_basic.targets')" />
-  <Import Project="..\packages\Zumero.1.4.1\build\wp8\Zumero.targets" Condition="Exists('..\packages\Zumero.1.4.1\build\wp8\Zumero.targets')" />
+  <Import Project="..\packages\Zumero.1.5.0.2157\build\wp8\Zumero.targets" Condition="Exists('..\packages\Zumero.1.5.0.2157\build\wp8\Zumero.targets')" />
 </Project>

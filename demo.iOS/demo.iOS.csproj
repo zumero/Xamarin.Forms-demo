@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{042B6209-76E0-4F08-AB1C-665C0BAA9EBB}</ProjectGuid>
+    <ProjectGuid>{1F4ED07B-944B-47C9-82C0-ABA72B84E357}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
     <RootNamespace>demo.iOS</RootNamespace>
@@ -123,7 +123,7 @@
       <HintPath>..\packages\Xamarin.Forms.1.2.2.6243\lib\MonoTouch10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Zumero">
-      <HintPath>..\packages\Zumero.1.4.1\lib\MonoTouch\Zumero.dll</HintPath>
+      <HintPath>..\packages\Zumero.1.5.0.2157\lib\MonoTouch\Zumero.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
