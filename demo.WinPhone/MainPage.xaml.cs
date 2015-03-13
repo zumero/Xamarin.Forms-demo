@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using Xamarin.Forms;
 using System.IO;
 using System.Text;
+using Xamarin.Forms.Platform.WinPhone;
 
 [assembly: Dependency(typeof(demo.WinPhone.SHA1Service))]
 [assembly: Dependency(typeof(demo.Data.BaseSyncService))]
@@ -34,7 +35,7 @@ namespace demo.WinPhone
             return sb.ToString();
         }
     }
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : FormsApplicationPage
     {
         // Constructor
         public MainPage()
@@ -48,7 +49,7 @@ namespace demo.WinPhone
             demo.App.DatabasePath = path;
 
             Forms.Init();
-            Content = demo.App.GetMainPage().ConvertPageToUIElement(this);
+            LoadApplication(new demo.App());
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
         }

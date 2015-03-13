@@ -15,7 +15,7 @@ namespace demo.xaml
             InitializeComponent();
 			ToolbarItems.Add(new ToolbarItem()
             {
-                Name = "Sync",
+                Text = "Sync",
 				Icon = (Device.OS == TargetPlatform.WinPhone) ? "refresh.png" : null,
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(() =>
@@ -26,7 +26,7 @@ namespace demo.xaml
 			
 			ToolbarItems.Add(new ToolbarItem()
             {
-                Name = "Revert Changes",
+                Text = "Revert Changes",
 				Icon = (Device.OS == TargetPlatform.WinPhone) ? "undo.png" : null,
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () =>

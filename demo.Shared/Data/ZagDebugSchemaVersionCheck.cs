@@ -15,9 +15,8 @@
 // the schema info to change and so this notice
 // has a high false-positive rate.
 //
-// The "schema info" (stored in column "json" in
-// table "t$s" can change for any of the following
-// reasons:
+// The "schema info" can change for any of the
+// following reasons:
 //
 // [] The initial sync on this device synced with
 //    the wrong DBFile on the server.
@@ -74,25 +73,30 @@ namespace demo.Data
 	
 	public static class ZagDebugSchemaVersionCheck
 	{
-		private const string GENERATED_SIG = "0942CBD60E0E608D7CDB5715026D9E21F9B541EB";
+		private const string GENERATED_SIG = "78BCAEA19F8B64D32B91418C5330177A4F199913";
 
 		/// <summary>
 		///   Return TRUE if the database schema matches the
 		///   schema when ZAG generated this app.
-		///
-		///   Since I've moved this code to the Data layer in
-		///   this template, I'll let the GUI code raise an
-		///   alert if appropriate.
 		/// </summary>
-		public static bool checkVersion(SQLiteConnection db)
+		public static bool VerifySchema()
 			{
+				//It would be more efficient to do this in the DataService, 
+				// and not open another connection, but
+				//I wanted to keep DataService clean of references to nonessential classes.
+				SQLiteConnection db = new SQLiteConnection(App.DatabasePath);
+				db.Query<object>("PRAGMA journal_mode=WAL");
+
+				db.Execute("PRAGMA foreign_keys=ON");
+				db.Execute("PRAGMA recursive_triggers=ON");
 				string current = getCurrentSig(db);
+				db.Close();
 				return (current == GENERATED_SIG);
 			}
 
 		private static string getCurrentSig(SQLiteConnection db)
 			{
-				string json = db.ExecuteScalar<string>("SELECT json FROM t$s ORDER BY txid DESC LIMIT 1");
+				string json = db.ExecuteScalar<string>("SELECT v FROM t$v WHERE k=10");
 				return DependencyService.Get<ISHA1Service>().HashString(json);
 			}
 	}

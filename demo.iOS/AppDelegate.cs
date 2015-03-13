@@ -6,6 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 using System.Security.Cryptography;
 using System.Text;
 using System.IO;
@@ -33,15 +34,12 @@ namespace demo.iOS
         }
     }
 	
-    // The UIApplicationDelegate for the application. This class is responsible for launching the 
+    // The FormsApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : UIApplicationDelegate
+    public partial class AppDelegate : FormsApplicationDelegate
     {
-        // class-level declarations
-        UIWindow window;
-
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -61,13 +59,9 @@ namespace demo.iOS
 
             App.DatabasePath = path;
 
-            window = new UIWindow(UIScreen.MainScreen.Bounds);
+            LoadApplication(new demo.App());
 
-            window.RootViewController = App.GetMainPage().CreateViewController();
-
-            window.MakeKeyAndVisible();
-
-            return true;
+            return base.FinishedLaunching(app, options);
         }
 		
 		// This method should be used to release shared resources and it should store the application state.

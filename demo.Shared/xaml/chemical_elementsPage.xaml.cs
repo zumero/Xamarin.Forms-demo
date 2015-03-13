@@ -19,7 +19,7 @@ namespace demo.xaml
 
 			ToolbarItems.Add(new ToolbarItem()
             {
-                Name = "Sync"
+                Text = "Sync"
 				, Icon = (Device.OS == TargetPlatform.WinPhone) ? "refresh.png" : null
                 , Order = ToolbarItemOrder.Primary,
                 Command = new Command(() =>
@@ -30,7 +30,7 @@ namespace demo.xaml
 			
             ToolbarItems.Add(new ToolbarItem()
             {
-                Name = "Insert",
+                Text = "Insert",
 				Icon = (Device.OS == TargetPlatform.WinPhone) ? "new.png" : null,
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(() =>

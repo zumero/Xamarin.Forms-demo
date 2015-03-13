@@ -22,7 +22,7 @@
         <Entry Placeholder="Scheme:" Text="{Binding Params.Scheme}" IsVisible="{Binding Params.SendAuth}"/>
         <Entry Placeholder="User:"  Text="{Binding Params.User}" IsVisible="{Binding Params.SendAuth}"/>
         <Entry Placeholder="Password:"  Text="{Binding Params.Password}" IsVisible="{Binding Params.SendAuth}"/>
-		<Button Text="Sync Now" Clicked="OnSyncButtonClicked" />"
+		<Button Text="Sync Now" Clicked="OnSyncButtonClicked" />
     </StackLayout>
   </StackLayout>
 </ContentPage>

@@ -7,19 +7,15 @@ using Xamarin.Forms;
 using demo.Views;
 using demo.Models;
 
+[assembly: Xamarin.Forms.Dependency(typeof(demo.Data.DataService))]
+
 namespace demo
 {
-    public class App
+    public class App : Application
     {
-		public static App Current
+        public App()
         {
-            get { return current; }
-        } 
-        private static App current;
-
-        static App()
-        {
-            current = new App();
+            MainPage = new RootNavigationPage(new demo.xaml.WelcomePage());
         }
 
         public event EventHandler<Exception> SyncFailed = delegate { };
@@ -40,9 +36,5 @@ namespace demo
 		
         public static string DatabasePath { get; set; }
 
-        public static Page GetMainPage()
-        {
-            return new RootNavigationPage(new demo.xaml.WelcomePage());
-        }
     }
 }

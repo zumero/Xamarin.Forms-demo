@@ -53,7 +53,7 @@ namespace demo.Data
                 else
                     ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, null, null, null);
 				_isSyncRunning = false;
-                App.Current.NotifySyncCompleted(syncParams);
+                ((demo.App)Xamarin.Forms.Application.Current).NotifySyncCompleted(syncParams);
             }
             catch (Exception e)
             {
@@ -73,7 +73,7 @@ namespace demo.Data
 					//...
 				}
 				_isSyncRunning = false;
-                App.Current.NotifySyncFailed(e);
+                ((demo.App)Xamarin.Forms.Application.Current).NotifySyncFailed(e);
             }
             
         }

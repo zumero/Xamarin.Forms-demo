@@ -1,44 +1,46 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SQLite;
-using Xamarin.Forms;
 
-[assembly: Dependency(typeof(demo.Data.DataService))]
+using SQLite;
+
+
 namespace demo.Data
 {
-    interface IDataService
+    public interface IDataService
     {
         IList<T> LoadAll<T>() where T : new();
         void Update(object item);
         void Insert(object item);
-		bool HasNeverBeenSynced();
-		bool VerifySchema();
+        bool HasNeverBeenSynced();
     }
 
-    class DataService : IDataService
+    public class DataService : IDataService
     {
+        
         private SQLiteConnection _connection;
         public DataService()
         {
             _connection = new SQLiteConnection(App.DatabasePath);
+        
+        
             //Turning on WAL mode is important if you're going to be 
             //doing any concurrent access to the database.
             _connection.Query<object>("PRAGMA journal_mode=WAL");
 
-			//These pragma statements are very important to ensure
-			//that Zumero can track changes correctly.
+            //These pragma statements are very important to ensure
+            //that Zumero can track changes correctly.
             _connection.Execute("PRAGMA foreign_keys=ON");
-			_connection.Execute("PRAGMA recursive_triggers=ON");
+            _connection.Execute("PRAGMA recursive_triggers=ON");
             
-			
+
             // In a normal SQLite-Net app, you would call CreateTable() here.
             // Do not do that!! Zumero will be in charge of creating tables
             // and updating schemas.
         }
-		
+
         private void StartReadTransaction()
         {
             _connection.Execute("BEGIN TRANSACTION");
@@ -52,6 +54,7 @@ namespace demo.Data
             //transaction will cause any future Sync calls to block until
             //the write transaction is complete.
             bool txBegun = false;
+            
             while (txBegun == false)
             {
                 try
@@ -65,6 +68,7 @@ namespace demo.Data
                         e.Result == SQLite3.Result.Locked)
                         //This is a portable way of doing Thread.Sleep().
                         Task.Delay(TimeSpan.FromMilliseconds(100)).Wait();
+                        
                     else
                         throw;
                 }
@@ -81,18 +85,18 @@ namespace demo.Data
             _connection.Execute("ROLLBACK");
         }
 
-		public bool HasNeverBeenSynced()
-		{
-			try
-			{
-				_connection.Query<int>("SELECT COUNT(*) FROM t$s;");
-				return false;
-			}
-			catch (Exception)
-			{
-				return true;
-			}
-		}
+        public bool HasNeverBeenSynced()
+        {
+            try
+            {
+                _connection.Query<int>("SELECT COUNT(*) FROM t$v;");
+                return false;
+            }
+            catch (Exception)
+            {
+                return true;
+            }
+        }
 
         public IList<T> LoadAll<T>() where T : new()
         {
@@ -155,10 +159,5 @@ namespace demo.Data
                 throw;
             }
         }
-		
-		public bool VerifySchema()
-		{
-			return ZagDebugSchemaVersionCheck.checkVersion(_connection);
-		}
     }
 }

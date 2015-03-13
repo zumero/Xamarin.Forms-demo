@@ -54,15 +54,15 @@ namespace demo.xaml
 		protected override void OnAppearing()
         {
             base.OnAppearing();
-            App.Current.SyncCompleted += SyncCompleted;
-            App.Current.SyncFailed += SyncFailed;
+            ((demo.App)Xamarin.Forms.Application.Current).SyncCompleted += SyncCompleted;
+            ((demo.App)Xamarin.Forms.Application.Current).SyncFailed += SyncFailed;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            App.Current.SyncCompleted -= SyncCompleted;
-            App.Current.SyncFailed -= SyncFailed;
+            ((demo.App)Xamarin.Forms.Application.Current).SyncCompleted -= SyncCompleted;
+            ((demo.App)Xamarin.Forms.Application.Current).SyncFailed -= SyncFailed;
         }
 		
         private bool _syncInProgress = false;
@@ -71,11 +71,11 @@ namespace demo.xaml
             set { _syncInProgress = value; OnPropertyChanged("IsSyncInProgress");  } 
         }
 		
-		void SyncCompleted(object sender, SyncParams e)
+        void SyncCompleted(object sender, SyncParams e)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                if (!DependencyService.Get<IDataService>().VerifySchema())
+                if (!ZagDebugSchemaVersionCheck.VerifySchema())
                     this.DisplayAlert("Database Schema Changed", "The schema for the database has been changed since this application was generated.  This may cause failures if columns have been removed.  You may want to use Zumero Application Generator to recreate this app, based on the new schema.", "Ok");
                 _syncParams.SaveSyncParam();
                 this.IsSyncInProgress = false;
@@ -92,7 +92,7 @@ namespace demo.xaml
             });
         }
 
-		public void OnSyncButtonClicked(object sender, EventArgs e)
+        public void OnSyncButtonClicked(object sender, EventArgs e)
         {
             Sync();
         }

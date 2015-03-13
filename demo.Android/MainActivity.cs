@@ -36,7 +36,7 @@ namespace demo.Droid
         }
     }
     [Activity(Label = "demo", MainLauncher = true, Theme="@android:style/Theme.Holo.Light", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : AndroidActivity
+    public class MainActivity : FormsApplicationActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -49,7 +49,7 @@ namespace demo.Droid
             var path = Path.Combine(documentsPath, sqliteFilename);
             App.DatabasePath = path;
 
-            SetPage(App.GetMainPage());
+            LoadApplication(new App());
         }
     }
 }

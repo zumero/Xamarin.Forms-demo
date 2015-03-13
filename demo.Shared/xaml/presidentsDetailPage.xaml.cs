@@ -34,7 +34,7 @@ namespace demo.xaml
             
 			ToolbarItems.Add(new ToolbarItem()
             {
-                Name = saveButtonText,
+                Text = saveButtonText,
 				Icon = (Device.OS == TargetPlatform.WinPhone) ? "save.png" : null,
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(() =>

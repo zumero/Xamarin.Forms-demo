@@ -25,7 +25,7 @@ namespace demo.Models
 
 
 		[PrimaryKey]
-		[NotNull]
+        [NotNull]
 		[AutoIncrement, Column("id")]
 		public int id 
 		{ 

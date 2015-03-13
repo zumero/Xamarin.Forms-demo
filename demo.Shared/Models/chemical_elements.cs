@@ -25,7 +25,7 @@ namespace demo.Models
 
 
 		[PrimaryKey]
-		[NotNull]
+        [NotNull]
 		[AutoIncrement, Column("atomic_number")]
 		public int atomic_number 
 		{ 
