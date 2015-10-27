@@ -17,56 +17,56 @@
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
 	  
-        <Label Text="id:" Grid.Row="0" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding id, Converter={StaticResource nullConverter} }" x:Name="id_column" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="1" />
+        <Label Text="id:" Grid.Row="1" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding id, Converter={StaticResource nullConverter} }" x:Name="id_column" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1" />
 	  
-        <Label Text="full_name:" Grid.Row="1" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding full_name, Converter={StaticResource nullConverter} }" x:Name="full_name_column" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1" />
+        <Label Text="full_name:" Grid.Row="2" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding full_name, Converter={StaticResource nullConverter} }" x:Name="full_name_column" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" />
 	  
-        <Label Text="years_in_office:" Grid.Row="2" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding years_in_office, Converter={StaticResource nullConverter} }" x:Name="years_in_office_column" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" />
+        <Label Text="years_in_office:" Grid.Row="3" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding years_in_office, Converter={StaticResource nullConverter} }" x:Name="years_in_office_column" HorizontalOptions="FillAndExpand" Grid.Row="3" Grid.Column="1" />
 	  
-        <Label Text="inauguration_date:" Grid.Row="3" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding inauguration_date, Converter={StaticResource nullConverter} }" x:Name="inauguration_date_column" HorizontalOptions="FillAndExpand" Grid.Row="3" Grid.Column="1" />
+        <Label Text="inauguration_date:" Grid.Row="4" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding inauguration_date, Converter={StaticResource nullConverter} }" x:Name="inauguration_date_column" HorizontalOptions="FillAndExpand" Grid.Row="4" Grid.Column="1" />
 	  
-        <Label Text="left_office:" Grid.Row="4" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding left_office, Converter={StaticResource nullConverter} }" x:Name="left_office_column" HorizontalOptions="FillAndExpand" Grid.Row="4" Grid.Column="1" />
+        <Label Text="left_office:" Grid.Row="5" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding left_office, Converter={StaticResource nullConverter} }" x:Name="left_office_column" HorizontalOptions="FillAndExpand" Grid.Row="5" Grid.Column="1" />
 	  
-        <Label Text="age_at_inauguration:" Grid.Row="5" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding age_at_inauguration, Converter={StaticResource nullConverter} }" x:Name="age_at_inauguration_column" HorizontalOptions="FillAndExpand" Grid.Row="5" Grid.Column="1" />
+        <Label Text="age_at_inauguration:" Grid.Row="6" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding age_at_inauguration, Converter={StaticResource nullConverter} }" x:Name="age_at_inauguration_column" HorizontalOptions="FillAndExpand" Grid.Row="6" Grid.Column="1" />
 	  
-        <Label Text="state_elected_from:" Grid.Row="6" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding state_elected_from, Converter={StaticResource nullConverter} }" x:Name="state_elected_from_column" HorizontalOptions="FillAndExpand" Grid.Row="6" Grid.Column="1" />
+        <Label Text="state_elected_from:" Grid.Row="7" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding state_elected_from, Converter={StaticResource nullConverter} }" x:Name="state_elected_from_column" HorizontalOptions="FillAndExpand" Grid.Row="7" Grid.Column="1" />
 	  
-        <Label Text="electoral_votes:" Grid.Row="7" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding electoral_votes, Converter={StaticResource nullConverter} }" x:Name="electoral_votes_column" HorizontalOptions="FillAndExpand" Grid.Row="7" Grid.Column="1" />
+        <Label Text="electoral_votes:" Grid.Row="8" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding electoral_votes, Converter={StaticResource nullConverter} }" x:Name="electoral_votes_column" HorizontalOptions="FillAndExpand" Grid.Row="8" Grid.Column="1" />
 	  
-        <Label Text="total_electoral_votes:" Grid.Row="8" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding total_electoral_votes, Converter={StaticResource nullConverter} }" x:Name="total_electoral_votes_column" HorizontalOptions="FillAndExpand" Grid.Row="8" Grid.Column="1" />
+        <Label Text="total_electoral_votes:" Grid.Row="9" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding total_electoral_votes, Converter={StaticResource nullConverter} }" x:Name="total_electoral_votes_column" HorizontalOptions="FillAndExpand" Grid.Row="9" Grid.Column="1" />
 	  
-        <Label Text="percent_electoral:" Grid.Row="9" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding percent_electoral, Converter={StaticResource nullConverter} }" x:Name="percent_electoral_column" HorizontalOptions="FillAndExpand" Grid.Row="9" Grid.Column="1" />
+        <Label Text="percent_electoral:" Grid.Row="10" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding percent_electoral, Converter={StaticResource nullConverter} }" x:Name="percent_electoral_column" HorizontalOptions="FillAndExpand" Grid.Row="10" Grid.Column="1" />
 	  
-        <Label Text="popular_votes:" Grid.Row="10" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding popular_votes, Converter={StaticResource nullConverter} }" x:Name="popular_votes_column" HorizontalOptions="FillAndExpand" Grid.Row="10" Grid.Column="1" />
+        <Label Text="popular_votes:" Grid.Row="11" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding popular_votes, Converter={StaticResource nullConverter} }" x:Name="popular_votes_column" HorizontalOptions="FillAndExpand" Grid.Row="11" Grid.Column="1" />
 	  
-        <Label Text="total_national_votes:" Grid.Row="11" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding total_national_votes, Converter={StaticResource nullConverter} }" x:Name="total_national_votes_column" HorizontalOptions="FillAndExpand" Grid.Row="11" Grid.Column="1" />
+        <Label Text="total_national_votes:" Grid.Row="12" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding total_national_votes, Converter={StaticResource nullConverter} }" x:Name="total_national_votes_column" HorizontalOptions="FillAndExpand" Grid.Row="12" Grid.Column="1" />
 	  
-        <Label Text="percent_popular:" Grid.Row="12" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding percent_popular, Converter={StaticResource nullConverter} }" x:Name="percent_popular_column" HorizontalOptions="FillAndExpand" Grid.Row="12" Grid.Column="1" />
+        <Label Text="percent_popular:" Grid.Row="13" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding percent_popular, Converter={StaticResource nullConverter} }" x:Name="percent_popular_column" HorizontalOptions="FillAndExpand" Grid.Row="13" Grid.Column="1" />
 	  
-        <Label Text="political_party:" Grid.Row="13" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding political_party, Converter={StaticResource nullConverter} }" x:Name="political_party_column" HorizontalOptions="FillAndExpand" Grid.Row="13" Grid.Column="1" />
+        <Label Text="political_party:" Grid.Row="14" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding political_party, Converter={StaticResource nullConverter} }" x:Name="political_party_column" HorizontalOptions="FillAndExpand" Grid.Row="14" Grid.Column="1" />
 	  
-        <Label Text="Occupation:" Grid.Row="14" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding Occupation, Converter={StaticResource nullConverter} }" x:Name="Occupation_column" HorizontalOptions="FillAndExpand" Grid.Row="14" Grid.Column="1" />
+        <Label Text="Occupation:" Grid.Row="15" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding Occupation, Converter={StaticResource nullConverter} }" x:Name="Occupation_column" HorizontalOptions="FillAndExpand" Grid.Row="15" Grid.Column="1" />
 	  
-        <Label Text="College:" Grid.Row="15" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding College, Converter={StaticResource nullConverter} }" x:Name="College_column" HorizontalOptions="FillAndExpand" Grid.Row="15" Grid.Column="1" />
+        <Label Text="College:" Grid.Row="16" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding College, Converter={StaticResource nullConverter} }" x:Name="College_column" HorizontalOptions="FillAndExpand" Grid.Row="16" Grid.Column="1" />
 	  
-        <Label Text="portrait:" Grid.Row="16" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Image  x:Name="portrait_column" HorizontalOptions="FillAndExpand" Grid.Row="16" Grid.Column="1" />
+        <Label Text="portrait:" Grid.Row="17" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Image  x:Name="portrait_column" HorizontalOptions="FillAndExpand" Grid.Row="17" Grid.Column="1" />
 
     </Grid>
   </ScrollView>

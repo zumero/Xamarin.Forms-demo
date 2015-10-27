@@ -18,10 +18,13 @@ namespace demo.Data
 		bool IsSyncRunning();
         void StartBackgroundSync(SyncParams syncParams);
 		void RevertLocalChanges();
+		void Cancel();
+		void Cancel(int cancelToken);
     }
     
     public class BaseSyncService : ISyncService
     {
+	    int _cancellationToken;
         //This default version is used on iOS and WinPhone
         public void StartBackgroundSync(SyncParams syncParams)
         {
@@ -33,6 +36,16 @@ namespace demo.Data
         {
             return _isSyncRunning;
         }
+
+        public void Cancel()
+        {
+            ZumeroClient.Cancel(_cancellationToken);
+        }
+		
+		public void Cancel(int cancelToken)
+		{
+			ZumeroClient.Cancel(cancelToken);
+		}
 
 		public void RevertLocalChanges()
 		{
@@ -46,12 +59,29 @@ namespace demo.Data
         public void Sync(SyncParams syncParams)
         {
 			_isSyncRunning = true;
+			ZumeroClient.callback_progress_handler callback = (cancellationToken, phase, bytesSoFar, bytesTotal) =>
+			{
+				_cancellationToken = cancellationToken;
+				App.CancelToken = cancellationToken;
+				string syncProgressString = "";
+				if (phase == (int)ZumeroPhase.Preparing)
+					syncProgressString = "Preparing";
+				else if (phase == (int)ZumeroPhase.Uploading)
+					syncProgressString = "Uploading " + bytesSoFar + " of " + bytesTotal;
+				else if (phase == (int)ZumeroPhase.WaitingForResponse)
+					syncProgressString = "Waiting for response";
+				else if (phase == (int)ZumeroPhase.Downloading)
+					syncProgressString = "Downloading " + bytesSoFar + " of " + bytesTotal;
+				else if (phase == (int)ZumeroPhase.Applying)
+					syncProgressString = "Applying";
+				((demo.App)Xamarin.Forms.Application.Current).NotifySyncProgress(syncProgressString);
+			};
             try
             {
                 if (syncParams.SendAuth)
-                    ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, syncParams.Scheme, syncParams.User, syncParams.Password);
+                    ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, syncParams.Scheme, syncParams.User, syncParams.Password, callback);
                 else
-                    ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, null, null, null);
+                    ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, null, null, null, callback);
 				_isSyncRunning = false;
                 ((demo.App)Xamarin.Forms.Application.Current).NotifySyncCompleted(syncParams);
             }

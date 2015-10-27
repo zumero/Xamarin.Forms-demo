@@ -56,6 +56,7 @@ namespace demo.xaml
             base.OnAppearing();
             ((demo.App)Xamarin.Forms.Application.Current).SyncCompleted += SyncCompleted;
             ((demo.App)Xamarin.Forms.Application.Current).SyncFailed += SyncFailed;
+            ((demo.App)Xamarin.Forms.Application.Current).SyncProgress += SyncProgress;
         }
 
         protected override void OnDisappearing()
@@ -63,6 +64,7 @@ namespace demo.xaml
             base.OnDisappearing();
             ((demo.App)Xamarin.Forms.Application.Current).SyncCompleted -= SyncCompleted;
             ((demo.App)Xamarin.Forms.Application.Current).SyncFailed -= SyncFailed;
+            ((demo.App)Xamarin.Forms.Application.Current).SyncProgress -= SyncProgress;
         }
 		
         private bool _syncInProgress = false;
@@ -70,6 +72,13 @@ namespace demo.xaml
             get { return _syncInProgress; }
             set { _syncInProgress = value; OnPropertyChanged("IsSyncInProgress");  } 
         }
+		
+		private string _syncProgressMessage = "";
+		public string SyncProgressMessage
+		{
+			get { return _syncProgressMessage; }
+			set { _syncProgressMessage = value; OnPropertyChanged("SyncProgressMessage"); }
+		}
 		
         void SyncCompleted(object sender, SyncParams e)
         {
@@ -92,6 +101,11 @@ namespace demo.xaml
             });
         }
 
+		void SyncProgress(object sender, string message)
+		{
+			SyncProgressMessage = message;
+		}
+		
         public void OnSyncButtonClicked(object sender, EventArgs e)
         {
             Sync();
@@ -102,5 +116,10 @@ namespace demo.xaml
             this.IsSyncInProgress = true;
             DependencyService.Get<ISyncService>().StartBackgroundSync(_syncParams);
         }
+		
+		public void OnCancelButtonClicked(object sender, EventArgs e)
+		{
+			DependencyService.Get<ISyncService>().Cancel();
+		}
     }
 }

@@ -24,6 +24,9 @@ namespace demo.Models
 		}
 
 
+
+		
+
 		[PrimaryKey]
         [NotNull]
 		[AutoIncrement, Column("id")]
@@ -291,6 +294,7 @@ namespace demo.Models
 		public override string ToString() 
 		{
 			StringBuilder sb = new StringBuilder();
+
 
 			sb.Append(id.ToString());
 

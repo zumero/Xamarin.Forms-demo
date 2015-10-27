@@ -11,7 +11,11 @@
     </ResourceDictionary>
   </ContentPage.Resources>
   <StackLayout Spacing="10">
-    <ActivityIndicator IsEnabled="true" IsVisible="{Binding IsSyncInProgress}" IsRunning="{Binding IsSyncInProgress}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+	<StackLayout Spacing="10" IsVisible="{Binding IsSyncInProgress}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+		<ActivityIndicator IsEnabled="true" HorizontalOptions="CenterAndExpand" />
+		<Label Text="{Binding SyncProgressMessage}"/>
+		<Button Text="Cancel" Clicked="OnCancelButtonClicked" />
+	</StackLayout>
     <StackLayout Spacing="10" IsVisible="{Binding IsSyncInProgress, Converter={StaticResource inverseBooleanConverter} }" >
       <Entry Placeholder="Server URL:" Keyboard="Url" Text="{Binding Params.URL}"/>
       <Entry Placeholder="DBFile:"  Text="{Binding Params.DBFile}"/>

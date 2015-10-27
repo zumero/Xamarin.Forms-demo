@@ -17,53 +17,53 @@
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
 	  
-        <Label Text="atomic_number:" Grid.Row="0" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding atomic_number, Converter={StaticResource nullConverter} }" x:Name="atomic_number_column" HorizontalOptions="FillAndExpand" Grid.Row="0" Grid.Column="1" />
+        <Label Text="atomic_number:" Grid.Row="1" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding atomic_number, Converter={StaticResource nullConverter} }" x:Name="atomic_number_column" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1" />
 	  
-        <Label Text="symbol:" Grid.Row="1" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding symbol, Converter={StaticResource nullConverter} }" x:Name="symbol_column" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1" />
+        <Label Text="symbol:" Grid.Row="2" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding symbol, Converter={StaticResource nullConverter} }" x:Name="symbol_column" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" />
 	  
-        <Label Text="name:" Grid.Row="2" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding name, Converter={StaticResource nullConverter} }" x:Name="name_column" HorizontalOptions="FillAndExpand" Grid.Row="2" Grid.Column="1" />
+        <Label Text="name:" Grid.Row="3" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding name, Converter={StaticResource nullConverter} }" x:Name="name_column" HorizontalOptions="FillAndExpand" Grid.Row="3" Grid.Column="1" />
 	  
-        <Label Text="atomic_mass:" Grid.Row="3" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding atomic_mass, Converter={StaticResource nullConverter} }" x:Name="atomic_mass_column" HorizontalOptions="FillAndExpand" Grid.Row="3" Grid.Column="1" />
+        <Label Text="atomic_mass:" Grid.Row="4" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding atomic_mass, Converter={StaticResource nullConverter} }" x:Name="atomic_mass_column" HorizontalOptions="FillAndExpand" Grid.Row="4" Grid.Column="1" />
 	  
-        <Label Text="electron_configuration:" Grid.Row="4" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding electron_configuration, Converter={StaticResource nullConverter} }" x:Name="electron_configuration_column" HorizontalOptions="FillAndExpand" Grid.Row="4" Grid.Column="1" />
+        <Label Text="electron_configuration:" Grid.Row="5" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding electron_configuration, Converter={StaticResource nullConverter} }" x:Name="electron_configuration_column" HorizontalOptions="FillAndExpand" Grid.Row="5" Grid.Column="1" />
 	  
-        <Label Text="electronegativity:" Grid.Row="5" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding electronegativity, Converter={StaticResource nullConverter} }" x:Name="electronegativity_column" HorizontalOptions="FillAndExpand" Grid.Row="5" Grid.Column="1" />
+        <Label Text="electronegativity:" Grid.Row="6" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding electronegativity, Converter={StaticResource nullConverter} }" x:Name="electronegativity_column" HorizontalOptions="FillAndExpand" Grid.Row="6" Grid.Column="1" />
 	  
-        <Label Text="atomic_radius:" Grid.Row="6" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding atomic_radius, Converter={StaticResource nullConverter} }" x:Name="atomic_radius_column" HorizontalOptions="FillAndExpand" Grid.Row="6" Grid.Column="1" />
+        <Label Text="atomic_radius:" Grid.Row="7" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding atomic_radius, Converter={StaticResource nullConverter} }" x:Name="atomic_radius_column" HorizontalOptions="FillAndExpand" Grid.Row="7" Grid.Column="1" />
 	  
-        <Label Text="ionic_energy:" Grid.Row="7" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding ionic_energy, Converter={StaticResource nullConverter} }" x:Name="ionic_energy_column" HorizontalOptions="FillAndExpand" Grid.Row="7" Grid.Column="1" />
+        <Label Text="ionic_energy:" Grid.Row="8" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding ionic_energy, Converter={StaticResource nullConverter} }" x:Name="ionic_energy_column" HorizontalOptions="FillAndExpand" Grid.Row="8" Grid.Column="1" />
 	  
-        <Label Text="standard_state:" Grid.Row="8" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding standard_state, Converter={StaticResource nullConverter} }" x:Name="standard_state_column" HorizontalOptions="FillAndExpand" Grid.Row="8" Grid.Column="1" />
+        <Label Text="standard_state:" Grid.Row="9" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding standard_state, Converter={StaticResource nullConverter} }" x:Name="standard_state_column" HorizontalOptions="FillAndExpand" Grid.Row="9" Grid.Column="1" />
 	  
-        <Label Text="melting_point:" Grid.Row="9" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding melting_point, Converter={StaticResource nullConverter} }" x:Name="melting_point_column" HorizontalOptions="FillAndExpand" Grid.Row="9" Grid.Column="1" />
+        <Label Text="melting_point:" Grid.Row="10" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding melting_point, Converter={StaticResource nullConverter} }" x:Name="melting_point_column" HorizontalOptions="FillAndExpand" Grid.Row="10" Grid.Column="1" />
 	  
-        <Label Text="boiling_point:" Grid.Row="10" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding boiling_point, Converter={StaticResource nullConverter} }" x:Name="boiling_point_column" HorizontalOptions="FillAndExpand" Grid.Row="10" Grid.Column="1" />
+        <Label Text="boiling_point:" Grid.Row="11" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding boiling_point, Converter={StaticResource nullConverter} }" x:Name="boiling_point_column" HorizontalOptions="FillAndExpand" Grid.Row="11" Grid.Column="1" />
 	  
-        <Label Text="density:" Grid.Row="11" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding density, Converter={StaticResource nullConverter} }" x:Name="density_column" HorizontalOptions="FillAndExpand" Grid.Row="11" Grid.Column="1" />
+        <Label Text="density:" Grid.Row="12" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding density, Converter={StaticResource nullConverter} }" x:Name="density_column" HorizontalOptions="FillAndExpand" Grid.Row="12" Grid.Column="1" />
 	  
-        <Label Text="periodic_group:" Grid.Row="12" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding periodic_group, Converter={StaticResource nullConverter} }" x:Name="periodic_group_column" HorizontalOptions="FillAndExpand" Grid.Row="12" Grid.Column="1" />
+        <Label Text="periodic_group:" Grid.Row="13" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding periodic_group, Converter={StaticResource nullConverter} }" x:Name="periodic_group_column" HorizontalOptions="FillAndExpand" Grid.Row="13" Grid.Column="1" />
 	  
-        <Label Text="year_discovered:" Grid.Row="13" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Numeric" Text="{Binding year_discovered, Converter={StaticResource nullConverter} }" x:Name="year_discovered_column" HorizontalOptions="FillAndExpand" Grid.Row="13" Grid.Column="1" />
+        <Label Text="year_discovered:" Grid.Row="14" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Numeric" Text="{Binding year_discovered, Converter={StaticResource nullConverter} }" x:Name="year_discovered_column" HorizontalOptions="FillAndExpand" Grid.Row="14" Grid.Column="1" />
 	  
-        <Label Text="discoverer:" Grid.Row="14" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding discoverer, Converter={StaticResource nullConverter} }" x:Name="discoverer_column" HorizontalOptions="FillAndExpand" Grid.Row="14" Grid.Column="1" />
+        <Label Text="discoverer:" Grid.Row="15" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding discoverer, Converter={StaticResource nullConverter} }" x:Name="discoverer_column" HorizontalOptions="FillAndExpand" Grid.Row="15" Grid.Column="1" />
 	  
-        <Label Text="history:" Grid.Row="15" Grid.Column="0" XAlign="End" YAlign="Center"/>
-        <Entry Keyboard="Default" Text="{Binding history, Converter={StaticResource nullConverter} }" x:Name="history_column" HorizontalOptions="FillAndExpand" Grid.Row="15" Grid.Column="1" />
+        <Label Text="history:" Grid.Row="16" Grid.Column="0" XAlign="End" YAlign="Center"/>
+        <Entry Keyboard="Default" Text="{Binding history, Converter={StaticResource nullConverter} }" x:Name="history_column" HorizontalOptions="FillAndExpand" Grid.Row="16" Grid.Column="1" />
 
     </Grid>
   </ScrollView>

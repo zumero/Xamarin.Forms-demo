@@ -13,6 +13,7 @@ namespace demo
 {
     public class App : Application
     {
+		public static int CancelToken { get; set; }
         public App()
         {
             MainPage = new RootNavigationPage(new demo.xaml.WelcomePage());
@@ -32,6 +33,14 @@ namespace demo
         {
             if (SyncCompleted != null)
                 SyncCompleted(this, p);
+        }
+
+        public event EventHandler<string> SyncProgress = delegate { };
+
+        public void NotifySyncProgress(string progressString)
+        {
+            if (SyncProgress != null)
+                SyncProgress(this, progressString);
         }
 		
         public static string DatabasePath { get; set; }

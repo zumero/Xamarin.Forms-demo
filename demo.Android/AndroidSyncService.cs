@@ -77,6 +77,18 @@ namespace demo.Droid
             throw new NotImplementedException("Android does not have yet have a way to tell if the sync is still running.");
         }
 		
+        public void Cancel()
+        {
+            new BaseSyncService().Cancel(App.CancelToken);
+            
+        }
+
+        public void Cancel(int cancelToken)
+        {
+            new BaseSyncService().Cancel(cancelToken);
+
+        }
+
 		public void RevertLocalChanges()
 		{
 			new BaseSyncService().RevertLocalChanges();

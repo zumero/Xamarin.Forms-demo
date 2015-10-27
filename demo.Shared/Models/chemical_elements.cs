@@ -24,6 +24,9 @@ namespace demo.Models
 		}
 
 
+
+		
+
 		[PrimaryKey]
         [NotNull]
 		[AutoIncrement, Column("atomic_number")]
@@ -256,6 +259,7 @@ namespace demo.Models
 		public override string ToString() 
 		{
 			StringBuilder sb = new StringBuilder();
+
 
 			sb.Append(atomic_number.ToString());
 

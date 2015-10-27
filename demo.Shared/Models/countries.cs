@@ -25,6 +25,9 @@ namespace demo.Models
 
 
 
+		
+
+
 
 		[Column("name")]
 		public string name 
@@ -223,6 +226,7 @@ namespace demo.Models
 		public override string ToString() 
 		{
 			StringBuilder sb = new StringBuilder();
+
 
 			if (name != null)
 			{
