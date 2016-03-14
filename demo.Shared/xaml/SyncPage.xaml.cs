@@ -46,6 +46,8 @@ namespace demo.xaml
         public SyncPage()
         {
             InitializeComponent();
+			if (Device.OS == TargetPlatform.Windows)
+                this.Padding = new Xamarin.Forms.Thickness(this.Padding.Left, this.Padding.Top, this.Padding.Right, 95);
 			
             _syncParams = SyncParams.LoadSavedSyncParams();
             this.BindingContext = this;
@@ -103,7 +105,10 @@ namespace demo.xaml
 
 		void SyncProgress(object sender, string message)
 		{
-			SyncProgressMessage = message;
+			Device.BeginInvokeOnMainThread(() =>
+            {
+                SyncProgressMessage = message;
+            });
 		}
 		
         public void OnSyncButtonClicked(object sender, EventArgs e)

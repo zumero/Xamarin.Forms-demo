@@ -13,6 +13,9 @@ namespace demo.xaml
         public TablesPage()
         {
             InitializeComponent();
+			if (Device.OS == TargetPlatform.Windows)
+                this.Padding = new Xamarin.Forms.Thickness(this.Padding.Left, this.Padding.Top, this.Padding.Right, 95);
+			
 			ToolbarItems.Add(new ToolbarItem()
             {
                 Text = "Sync",

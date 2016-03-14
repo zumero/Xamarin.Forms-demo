@@ -15,6 +15,9 @@ namespace demo.xaml
         public chemical_elementsPage()
         {
             InitializeComponent();
+			if (Device.OS == TargetPlatform.Windows)
+                this.Padding = new Xamarin.Forms.Thickness(this.Padding.Left, this.Padding.Top, this.Padding.Right, 95);
+			
             this.BindingContext = this;
 
 			ToolbarItems.Add(new ToolbarItem()

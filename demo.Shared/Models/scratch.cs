@@ -18,7 +18,7 @@ namespace demo.Models
 	{
 		public scratch()
 		{
-			//Don't fire notfications by default, since
+			//Don't fire notifications by default, since
 			//they make editing the properties difficult.
 			this.NotifyIfPropertiesChange = false;
 		}
