@@ -10,6 +10,7 @@
       <c:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
     </ResourceDictionary>
   </ContentPage.Resources>
+  <ScrollView>
   <StackLayout Spacing="10">
 	<StackLayout Spacing="10" IsVisible="{Binding IsSyncInProgress}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
 		<ActivityIndicator IsEnabled="true" HorizontalOptions="CenterAndExpand" />
@@ -27,6 +28,8 @@
         <Entry Placeholder="User:"  Text="{Binding Params.User}" IsVisible="{Binding Params.SendAuth}"/>
         <Entry Placeholder="Password:"  Text="{Binding Params.Password}" IsVisible="{Binding Params.SendAuth}"/>
 		<Button Text="Sync Now" Clicked="OnSyncButtonClicked" />
+		<Label Text="{Binding SyncDescription}"/>
     </StackLayout>
   </StackLayout>
+  </ScrollView>
 </ContentPage>

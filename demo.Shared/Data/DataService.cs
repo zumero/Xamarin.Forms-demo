@@ -15,6 +15,7 @@ namespace demo.Data
         void Update(object item);
         void Insert(object item);
         bool HasNeverBeenSynced();
+		string DescribeSync(int syncid);
     }
 
     public class DataService : IDataService
@@ -158,6 +159,48 @@ namespace demo.Data
                 this.Rollback();
                 throw;
             }
+        }
+		
+        private class StringHolder
+        {
+            public StringHolder()
+            { }
+            public string name { get; set;}
+        }
+        public string DescribeSync(int syncid)
+        {
+            this.StartReadTransaction();
+            StringBuilder sb = new StringBuilder();
+
+
+            IEnumerable<StringHolder> tables = _connection.Query<StringHolder>("SELECT name from sqlite_master WHERE type = 'table' and name NOT LIKE '%$%'and name NOT LIKE 'zumero_%'and name NOT LIKE 'sqlite_%' ORDER BY name;", new object[] {});
+
+            foreach (StringHolder t in tables)
+            {
+                string tableName = t.name;
+                try
+                {
+
+                    string syncDescription = _connection.ExecuteScalar<string>("SELECT \n" +
+                                                        "  CASE (SELECT action FROM [zumero_sync_" + tableName + "] WHERE syncid = " + syncid + " LIMIT 1) \n" +
+                                                        "  WHEN 'r' THEN\n" +
+                                                        "'All rows in the table were replaced'\n" +
+                                                        "  ELSE\n" +
+                                                        "    'Sync updated ' || (SELECT count(*) FROM [zumero_sync_" + tableName + "] WHERE syncid = " + syncid + " AND action = 'u') || ' row(s)' || x'0a'\n" +
+                                                        "    || 'Sync deleted ' || (SELECT count(*) FROM [zumero_sync_" + tableName + "] WHERE syncid = " + syncid + " AND action = 'd') || ' row(s)' || x'0a'\n" +
+                                                        "    || 'Sync added ' || (SELECT count(*) FROM [zumero_sync_" + tableName + "] WHERE syncid = " + syncid + " AND action = 'i') || ' row(s)' || x'0a'\n" +
+                                                        "END", new object[] {});
+                    if (syncDescription != "")
+                        sb.AppendLine(tableName + " -- " + syncDescription);
+                }
+                catch (Exception)
+                {
+                    //Ignore any exceptions.
+                }
+
+            }
+            this.Rollback();
+            return sb.ToString();
         }
     }
 }

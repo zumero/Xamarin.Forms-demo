@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{806D0475-B240-4C3C-90F6-BB73ECFDEACE}</ProjectGuid>
+    <ProjectGuid>{81068D3D-D34B-4249-B060-B424AD65F782}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>demo.WinRT</RootNamespace>
@@ -15,7 +15,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>demo.Windows_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <NuGetPackageImportStamp>4720159b</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>15098f92</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -172,7 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\demo.Shared\demo.Shared.csproj">
-      <Project>{1595C669-3825-4A81-AD7D-338399CAD942}</Project>
+      <Project>{C336CD7F-48A0-4151-950F-B3F3F16E4C22}</Project>
       <Name>demo.Shared</Name>
     </ProjectReference>
   </ItemGroup>
@@ -180,17 +180,17 @@
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="..\packages\Zumero.2.2.1.3091\build\netcore451\Zumero.targets" Condition="Exists('..\packages\Zumero.2.2.1.3091\build\netcore451\Zumero.targets')" />
+  <Import Project="..\packages\Zumero.2.3.0.3231\build\netcore451\Zumero.targets" Condition="Exists('..\packages\Zumero.2.3.0.3231\build\netcore451\Zumero.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Zumero.2.2.1.3091\build\netcore451\Zumero.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Zumero.2.2.1.3091\build\netcore451\Zumero.targets'))" />
-    <Error Condition="!Exists('..\packages\SQLitePCL.raw.0.8.6\build\win81\SQLitePCL.raw.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCL.raw.0.8.6\build\win81\SQLitePCL.raw.targets'))" />
+    <Error Condition="!Exists('..\packages\Zumero.2.3.0.3231\build\netcore451\Zumero.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Zumero.2.3.0.3231\build\netcore451\Zumero.targets'))" />
     <Error Condition="!Exists('..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\packages\SQLitePCL.raw.0.8.6\build\win81\SQLitePCL.raw.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCL.raw.0.8.6\build\win81\SQLitePCL.raw.targets'))" />
   </Target>
-  <Import Project="..\packages\SQLitePCL.raw.0.8.6\build\win81\SQLitePCL.raw.targets" Condition="Exists('..\packages\SQLitePCL.raw.0.8.6\build\win81\SQLitePCL.raw.targets')" />
   <Import Project="..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
+  <Import Project="..\packages\SQLitePCL.raw.0.8.6\build\win81\SQLitePCL.raw.targets" Condition="Exists('..\packages\SQLitePCL.raw.0.8.6\build\win81\SQLitePCL.raw.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

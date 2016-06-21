@@ -34,18 +34,22 @@ namespace demo.xaml
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () =>
                 {
+					Exception ex = null;
 					bool revert = await this.DisplayAlert("Confirm", "Are you sure that you want to revert all changes made to the local database since the last sync?", "Revert", "Cancel");
                     if (revert)
 					{
 						try
 						{
 							DependencyService.Get<ISyncService>().RevertLocalChanges();
-							this.DisplayAlert("Reverted", "All local changes have been reverted.", "Ok");
 						}
 						catch (Exception e)
 						{
-							this.DisplayAlert("Exception", e.Message, "Ok");
+                            				ex = e;
 						}
+                        			if (ex != null)
+							await this.DisplayAlert("Exception", ex.Message, "Ok");
+                        			else
+							await this.DisplayAlert("Reverted", "All local changes have been reverted.", "Ok");
 					}
                 })
             });

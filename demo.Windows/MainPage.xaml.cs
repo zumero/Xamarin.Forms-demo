@@ -69,7 +69,7 @@ namespace demo.WinRT
                 this.BottomAppBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 this.BottomAppBar.IsSticky = true;
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
         }
     }
 }

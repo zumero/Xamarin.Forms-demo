@@ -12,6 +12,8 @@ namespace demo.Models
 		[PrimaryKey, AutoIncrement]
 		public int id { get; set; }
 		
+		public string SyncDescription { get; set; }
+		
 		private string _URL = @"http://demo.zumero.com:8080";
 		public string URL
 		{

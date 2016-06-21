@@ -57,6 +57,7 @@ namespace demo.xaml
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+	    Exception ex = null;
             try
             {
                 this.FindByName<ListView>("itemsList").ItemsSource = await Task<IList<Models.presidents>>.Run(() =>
@@ -64,21 +65,24 @@ namespace demo.xaml
                     return DependencyService.Get<IDataService>().LoadAll<Models.presidents>();
                 });
             }
-            catch (Exception e)
+	    catch (Exception e)
             {
-				if (e.Message.StartsWith("no such table"))
-				{
-					this.DisplayAlert("Exception", "A sync hasn't been performed yet.  Please sync.", "Ok");
-					if (!alreadyRedirectedOnce)
-					{
-						alreadyRedirectedOnce = true;
-						this.Navigation.PushAsync(new SyncPage());
-					}
-				}
-				else
-					this.DisplayAlert("Exception", e.Message, "Ok");
+                ex = e;
             }
-
+            if (ex != null)
+            {
+                if (ex.Message.StartsWith("no such table"))
+                {
+                    await this.DisplayAlert("Exception", "A sync hasn't been performed yet.  Please sync.", "Ok");
+                    if (!alreadyRedirectedOnce)
+                    {
+                        alreadyRedirectedOnce = true;
+                        await this.Navigation.PushAsync(new SyncPage());
+                    }
+                }
+                else
+                    await this.DisplayAlert("Exception", ex.Message, "Ok");
+            }
         }
     }
 }

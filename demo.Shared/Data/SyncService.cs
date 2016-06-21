@@ -78,11 +78,16 @@ namespace demo.Data
 			};
             try
             {
+		string jsOptions = "{\"sync_details\":true}";
+                int syncid = -1;
                 if (syncParams.SendAuth)
-                    ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, syncParams.Scheme, syncParams.User, syncParams.Password, callback);
+                    ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, syncParams.Scheme, syncParams.User, syncParams.Password, jsOptions, out syncid, callback);
                 else
-                    ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, null, null, null, callback);
+                    ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, null, null, null, jsOptions, out syncid, callback);
 				_isSyncRunning = false;
+
+                string syncDescription =  DependencyService.Get<IDataService>().DescribeSync(syncid);
+                syncParams.SyncDescription = syncDescription;
                 ((demo.App)Xamarin.Forms.Application.Current).NotifySyncCompleted(syncParams);
             }
             catch (Exception e)

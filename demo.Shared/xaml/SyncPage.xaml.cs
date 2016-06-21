@@ -82,6 +82,16 @@ namespace demo.xaml
 			set { _syncProgressMessage = value; OnPropertyChanged("SyncProgressMessage"); }
 		}
 		
+	private string _syncDescription = "";
+        public string SyncDescription
+        {
+            get { return _syncDescription; }
+            set {
+                    _syncDescription = value;
+                    OnPropertyChanged("SyncDescription");
+            }
+        }
+
         void SyncCompleted(object sender, SyncParams e)
         {
             Device.BeginInvokeOnMainThread(() =>
@@ -90,7 +100,7 @@ namespace demo.xaml
                     this.DisplayAlert("Database Schema Changed", "The schema for the database has been changed since this application was generated.  This may cause failures if columns have been removed.  You may want to use Zumero Application Generator to recreate this app, based on the new schema.", "Ok");
                 _syncParams.SaveSyncParam();
                 this.IsSyncInProgress = false;
-                this.Navigation.PushAsync(new TablesPage());
+				this.SyncDescription = e.SyncDescription;
             });
         }
 
