@@ -19,7 +19,7 @@ namespace demo.xaml
 			ToolbarItems.Add(new ToolbarItem()
             {
                 Text = "Sync",
-				Icon = (Device.OS == TargetPlatform.WinPhone) ? "refresh.png" : null,
+				Icon = (Device.OS == TargetPlatform.WinPhone || Device.OS == TargetPlatform.Windows) ? "refresh.png" : null,
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(() =>
                 {
@@ -30,7 +30,7 @@ namespace demo.xaml
 			ToolbarItems.Add(new ToolbarItem()
             {
                 Text = "Revert Changes",
-				Icon = (Device.OS == TargetPlatform.WinPhone) ? "undo.png" : null,
+				Icon = (Device.OS == TargetPlatform.WinPhone || Device.OS == TargetPlatform.Windows) ? "undo.png" : null,
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () =>
                 {
