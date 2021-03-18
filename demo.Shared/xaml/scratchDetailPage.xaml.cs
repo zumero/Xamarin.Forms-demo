@@ -15,7 +15,7 @@ namespace demo.xaml
         public scratchDetailPage(Models.scratch data)
         {
             InitializeComponent();
-			if (Device.OS == TargetPlatform.Windows)
+			if (Device.RuntimePlatform == Device.UWP)
                 this.Padding = new Xamarin.Forms.Thickness(this.Padding.Left, this.Padding.Top, this.Padding.Right, 95);
 			
             bool insertMode = false;
@@ -34,21 +34,21 @@ namespace demo.xaml
 			ToolbarItems.Add(new ToolbarItem()
             {
                 Text = saveButtonText,
-				Icon = (Device.OS == TargetPlatform.WinPhone || Device.OS == TargetPlatform.Windows) ? "save.png" : null,
+				IconImageSource = (Device.RuntimePlatform == Device.UWP) ? "save.png" : null,
                 Order = ToolbarItemOrder.Primary,
-                Command = new Command(() =>
+                Command = new Command(async () =>
                 {
                     try
                     {
                         if (insertMode)
-                            DependencyService.Get<IDataService>().Insert(data);
+                            await DependencyService.Get<IDataService>().Insert(data);
                         else
-                            DependencyService.Get<IDataService>().Update(data);
-                        this.Navigation.PopAsync();
+                            await DependencyService.Get<IDataService>().Update(data);
+                        await this.Navigation.PopAsync();
                     }
                     catch (Exception e)
                     {
-                        this.DisplayAlert("Exception", e.Message, "Ok");
+                        await this.DisplayAlert("Exception", e.Message, "Ok");
                     }
                 })
             });

@@ -9,60 +9,51 @@ using Zumero;
 
 namespace demo.Data
 {
-    //The sync operation is abstracted out as a service,
-    //in order for Android to wrap the sync in a background
-    //service.  That ensures that a sync operation will not
-    //be terminated by the OS if the user leaves the sync activity
-    public interface ISyncService
-    {
+	//The sync operation is abstracted out as a service,
+	//in order for Android to wrap the sync in a background
+	//service.  That ensures that a sync operation will not
+	//be terminated by the OS if the user leaves the sync activity
+	public interface ISyncService
+	{
 		bool IsSyncRunning();
-        void StartBackgroundSync(SyncParams syncParams);
-		void RevertLocalChanges();
+		Task RevertLocalChanges();
+		Task Sync(SyncParams syncParams);
 		void Cancel();
 		void Cancel(int cancelToken);
-    }
-    
-    public class BaseSyncService : ISyncService
-    {
-	    int _cancellationToken;
-        //This default version is used on iOS and WinPhone
-        public void StartBackgroundSync(SyncParams syncParams)
-        {
-            Task.Run(() => { Sync(syncParams); });
-        }
-		
-		bool _isSyncRunning = false;
-        public bool IsSyncRunning()
-        {
-            return _isSyncRunning;
-        }
+	}
 
-        public void Cancel()
-        {
-            ZumeroClient.Cancel(_cancellationToken);
-        }
-		
+	public class BaseSyncService : ISyncService
+	{
+		int _cancellationToken;
+		bool _isSyncRunning = false;
+		public bool IsSyncRunning()
+		{
+			return _isSyncRunning;
+		}
+
+		public void Cancel()
+		{
+			ZumeroClient.Cancel(_cancellationToken);
+		}
+
 		public void Cancel(int cancelToken)
 		{
 			ZumeroClient.Cancel(cancelToken);
 		}
 
-		public void RevertLocalChanges()
+		public async Task RevertLocalChanges()
 		{
-			if (DependencyService.Get<IDataService>().HasNeverBeenSynced())
+			if (await DependencyService.Get<IDataService>().IsEmpty())
 				return;
-			ZumeroClient.QuarantineSinceLastSync(App.DatabasePath, null);
+			ZumeroClient.QuarantineSinceLastSync(SharedApp.DatabasePath, null);
 		}
-		
-        //This blocking version is called by Android from the
-        //background service.
-        public void Sync(SyncParams syncParams)
-        {
-			_isSyncRunning = true;
+
+		public async Task Sync(SyncParams syncParams)
+		{
 			ZumeroClient.callback_progress_handler callback = (cancellationToken, phase, bytesSoFar, bytesTotal) =>
 			{
 				_cancellationToken = cancellationToken;
-				App.CancelToken = cancellationToken;
+				SharedApp.CancelToken = cancellationToken;
 				string syncProgressString = "";
 				if (phase == (int)ZumeroPhase.Preparing)
 					syncProgressString = "Preparing";
@@ -74,43 +65,38 @@ namespace demo.Data
 					syncProgressString = "Downloading " + bytesSoFar + " of " + bytesTotal;
 				else if (phase == (int)ZumeroPhase.Applying)
 					syncProgressString = "Applying";
-				((demo.App)Xamarin.Forms.Application.Current).NotifySyncProgress(syncProgressString);
+				((demo.SharedApp)Xamarin.Forms.Application.Current).NotifySyncProgress(syncProgressString);
 			};
-            try
-            {
-		string jsOptions = "{\"sync_details\":true}";
-                int syncid = -1;
-                if (syncParams.SendAuth)
-                    ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, syncParams.Scheme, syncParams.User, syncParams.Password, jsOptions, out syncid, callback);
-                else
-                    ZumeroClient.Sync(App.DatabasePath, null, syncParams.URL, syncParams.DBFile, null, null, null, jsOptions, out syncid, callback);
-				_isSyncRunning = false;
+			try
+			{
+				//Sending the Sync request through the DataService means that it will wait for any outstanding write operations to 
+				//complete, and that any future write operations will wait for the sync to complete.
+				var syncid = await DependencyService.Get<IDataService>().Sync(syncParams, callback);
 
-                string syncDescription =  DependencyService.Get<IDataService>().DescribeSync(syncid);
-                syncParams.SyncDescription = syncDescription;
-                ((demo.App)Xamarin.Forms.Application.Current).NotifySyncCompleted(syncParams);
-            }
-            catch (Exception e)
-            {
+				string syncDescription = await DependencyService.Get<IDataService>().DescribeSync(syncid);
+				syncParams.SyncDescription = syncDescription;
+				((demo.SharedApp)Xamarin.Forms.Application.Current).NotifySyncCompleted(syncParams);
+			}
+			catch (Exception e)
+			{
 				if (e is ZumeroException)
 				{
 					//if you need to react to a certain result, you can check
 					//the result of the sync like this:
-					
+
 					//ZumeroException ze = (ZumeroException)e;
 					//
 					//if (ze.ErrorCode == (int)ZumeroResult.AuthenticationFailed)
 					//...
-					
+
 					//The error code could also be a SQLite error code
 					//
 					//if (ze.ErrorCode == (int)SQLite3.Result.Error)
 					//...
 				}
 				_isSyncRunning = false;
-                ((demo.App)Xamarin.Forms.Application.Current).NotifySyncFailed(e);
-            }
-            
-        }
-    }
+				((demo.SharedApp)Xamarin.Forms.Application.Current).NotifySyncFailed(e);
+			}
+		}
+	}
 }

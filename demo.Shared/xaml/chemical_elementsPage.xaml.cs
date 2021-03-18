@@ -15,7 +15,7 @@ namespace demo.xaml
         public chemical_elementsPage()
         {
             InitializeComponent();
-			if (Device.OS == TargetPlatform.Windows)
+			if (Device.RuntimePlatform == Device.UWP)
                 this.Padding = new Xamarin.Forms.Thickness(this.Padding.Left, this.Padding.Top, this.Padding.Right, 95);
 			
             this.BindingContext = this;
@@ -23,7 +23,7 @@ namespace demo.xaml
 			ToolbarItems.Add(new ToolbarItem()
             {
                 Text = "Sync"
-				, Icon = (Device.OS == TargetPlatform.WinPhone || Device.OS == TargetPlatform.Windows) ? "refresh.png" : null
+				, IconImageSource = (Device.RuntimePlatform == Device.UWP) ? "refresh.png" : null
                 , Order = ToolbarItemOrder.Primary,
                 Command = new Command(() =>
                 {
@@ -34,7 +34,7 @@ namespace demo.xaml
             ToolbarItems.Add(new ToolbarItem()
             {
                 Text = "Insert",
-				Icon = (Device.OS == TargetPlatform.WinPhone || Device.OS == TargetPlatform.Windows) ? "new.png" : null,
+				IconImageSource = (Device.RuntimePlatform == Device.UWP) ? "new.png" : null,
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(() =>
                 {
@@ -60,10 +60,7 @@ namespace demo.xaml
 	    Exception ex = null;
             try
             {
-                this.FindByName<ListView>("itemsList").ItemsSource = await Task<IList<Models.chemical_elements>>.Run(() =>
-                {
-                    return DependencyService.Get<IDataService>().LoadAll<Models.chemical_elements>();
-                });
+                this.FindByName<ListView>("itemsList").ItemsSource = await DependencyService.Get<IDataService>().LoadAll<Models.chemical_elements>();
             }
 	    catch (Exception e)
             {

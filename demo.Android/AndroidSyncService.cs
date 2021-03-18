@@ -43,7 +43,7 @@ namespace demo.Droid
 
         #region Handle A Sync Request
 
-        protected override void OnHandleIntent(Intent i)
+        protected override async void OnHandleIntent(Intent i)
         {
             Log.Debug(Class.Name, "OnHandleIntent starting");
             SyncParams p = new SyncParams();
@@ -55,10 +55,7 @@ namespace demo.Droid
             p.User = i.GetStringExtra("user");
             p.Password = i.GetStringExtra("password");
 
-            //Call the BaseSyncService in the portable Core.
-            //Since we're already in the background, call the blocking version
-            //of sync.
-            new BaseSyncService().Sync(p);
+            await new BaseSyncService().Sync(p);
             Log.Debug(Class.Name, "OnHandleIntent ending");
             this.StopSelf();
         }
@@ -79,7 +76,7 @@ namespace demo.Droid
 		
         public void Cancel()
         {
-            new BaseSyncService().Cancel(App.CancelToken);
+            new BaseSyncService().Cancel(SharedApp.CancelToken);
             
         }
 
@@ -89,15 +86,15 @@ namespace demo.Droid
 
         }
 
-		public void RevertLocalChanges()
+		public Task RevertLocalChanges()
 		{
-			new BaseSyncService().RevertLocalChanges();
+			return new BaseSyncService().RevertLocalChanges();
 		}
 		
-        public void StartBackgroundSync(SyncParams p)
+        public Task Sync(SyncParams p)
         {
             if (SyncActivity == null)
-                return;
+                return Task.CompletedTask;
             Intent syncIntent = new Intent(SyncActivity, typeof(AndroidBackgroundSyncService));
             syncIntent.PutExtra("url", p.URL);
             syncIntent.PutExtra("dbfile", p.DBFile);
@@ -107,7 +104,7 @@ namespace demo.Droid
             syncIntent.PutExtra("password", p.Password);
             //Starting a service can take a while, do that in a background
             //thread as well.
-            Task.Run(() =>
+            return Task.Run(() =>
             {
                 SyncActivity.StartService(syncIntent);
             });

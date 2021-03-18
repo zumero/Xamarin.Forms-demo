@@ -57,9 +57,9 @@ namespace demo.iOS
             string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder
             var path = Path.Combine(libraryPath, sqliteFilename);
 
-            App.DatabasePath = path;
+            SharedApp.DatabasePath = path;
 
-            LoadApplication(new demo.App());
+            LoadApplication(new demo.SharedApp());
 
             return base.FinishedLaunching(app, options);
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -60,9 +60,9 @@ namespace demo.Models
             OnPropertyChanged(propertyName);
         }
 		
-		protected void SetProperty<U>(
+        protected void SetProperty<U>(
             U backingStore, U value,
-			Action<U> performChange,
+            Action<U> performChange,
             string propertyName,
             Action onChanged = null,
             Action<U> onChanging = null)

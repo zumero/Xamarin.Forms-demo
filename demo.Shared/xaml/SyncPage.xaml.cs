@@ -46,27 +46,28 @@ namespace demo.xaml
         public SyncPage()
         {
             InitializeComponent();
-			if (Device.OS == TargetPlatform.Windows)
+			if (Device.RuntimePlatform == Device.UWP)
                 this.Padding = new Xamarin.Forms.Thickness(this.Padding.Left, this.Padding.Top, this.Padding.Right, 95);
 			
-            _syncParams = SyncParams.LoadSavedSyncParams();
             this.BindingContext = this;
         }
 
-		protected override void OnAppearing()
+		protected override async void OnAppearing()
         {
             base.OnAppearing();
-            ((demo.App)Xamarin.Forms.Application.Current).SyncCompleted += SyncCompleted;
-            ((demo.App)Xamarin.Forms.Application.Current).SyncFailed += SyncFailed;
-            ((demo.App)Xamarin.Forms.Application.Current).SyncProgress += SyncProgress;
+            _syncParams = await DependencyService.Get<IDataService>().LoadSyncParams();
+            OnPropertyChanged(nameof(Params));
+            ((demo.SharedApp)Xamarin.Forms.Application.Current).SyncCompleted += SyncCompleted;
+            ((demo.SharedApp)Xamarin.Forms.Application.Current).SyncFailed += SyncFailed;
+            ((demo.SharedApp)Xamarin.Forms.Application.Current).SyncProgress += SyncProgress;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            ((demo.App)Xamarin.Forms.Application.Current).SyncCompleted -= SyncCompleted;
-            ((demo.App)Xamarin.Forms.Application.Current).SyncFailed -= SyncFailed;
-            ((demo.App)Xamarin.Forms.Application.Current).SyncProgress -= SyncProgress;
+            ((demo.SharedApp)Xamarin.Forms.Application.Current).SyncCompleted -= SyncCompleted;
+            ((demo.SharedApp)Xamarin.Forms.Application.Current).SyncFailed -= SyncFailed;
+            ((demo.SharedApp)Xamarin.Forms.Application.Current).SyncProgress -= SyncProgress;
         }
 		
         private bool _syncInProgress = false;
@@ -94,11 +95,11 @@ namespace demo.xaml
 
         void SyncCompleted(object sender, SyncParams e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            Device.BeginInvokeOnMainThread(async () =>
             {
                 if (!ZagDebugSchemaVersionCheck.VerifySchema())
-                    this.DisplayAlert("Database Schema Changed", "The schema for the database has been changed since this application was generated.  This may cause failures if columns have been removed.  You may want to use Zumero Application Generator to recreate this app, based on the new schema.", "Ok");
-                _syncParams.SaveSyncParam();
+                    await this.DisplayAlert("Database Schema Changed", "The schema for the database has been changed since this application was generated.  This may cause failures if columns have been removed.  You may want to use Zumero Application Generator to recreate this app, based on the new schema.", "Ok");
+                await DependencyService.Get<IDataService>().SaveSyncParams(e);
                 this.IsSyncInProgress = false;
 				this.SyncDescription = e.SyncDescription;
             });
@@ -108,7 +109,7 @@ namespace demo.xaml
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                this.DisplayAlert("Exception", e.Message, "Ok");
+                this.DisplayAlert("Exception", e.ToString(), "Ok");
                 this.IsSyncInProgress = false;
             });
         }
@@ -126,10 +127,11 @@ namespace demo.xaml
             Sync();
         }
 			
-        public void Sync()
+        public async void Sync()
         {
             this.IsSyncInProgress = true;
-            DependencyService.Get<ISyncService>().StartBackgroundSync(_syncParams);
+            this.SyncDescription = _syncParams.SyncDescription = "";
+            await DependencyService.Get<ISyncService>().Sync(_syncParams);
         }
 		
 		public void OnCancelButtonClicked(object sender, EventArgs e)

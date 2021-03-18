@@ -6,6 +6,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Security.Cryptography;
+using Windows.Security.Cryptography.Core;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -13,16 +16,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.Security.Cryptography;
-
 using Xamarin.Forms;
-using Windows.Storage.Streams;
-using Windows.Security.Cryptography.Core;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-[assembly: Dependency(typeof(demo.WinRT.SHA1Service))]
+[assembly: Dependency(typeof(demo.UWP.SHA1Service))]
 [assembly: Dependency(typeof(demo.Data.BaseSyncService))]
-namespace demo.WinRT
+namespace demo.UWP
 {
 
     public class SHA1Service : demo.Data.ISHA1Service
@@ -43,9 +41,6 @@ namespace demo.WinRT
         }
     }
 
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage 
     {
         public MainPage()
@@ -55,21 +50,9 @@ namespace demo.WinRT
 
             string documentsPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;// System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // Documents folder
             var path = Path.Combine(documentsPath, sqliteFilename);
-            demo.App.DatabasePath = path;
+            demo.SharedApp.DatabasePath = path;
 
-            this.LayoutUpdated += MainPage_LayoutUpdated;
-            LoadApplication(new demo.App());
-        }
-
-        void MainPage_LayoutUpdated(object sender, object e)
-        {
-            try
-            {
-                this.BottomAppBar.IsOpen = true;
-                this.BottomAppBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                this.BottomAppBar.IsSticky = true;
-            }
-            catch (Exception) { }
+            LoadApplication(new demo.SharedApp());
         }
     }
 }

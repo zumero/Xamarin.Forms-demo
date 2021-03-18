@@ -20,6 +20,9 @@ namespace demo.Droid
     //service.
     public class CustomRenderer : PageRenderer
     {
+        public CustomRenderer(Context context) : base(context)
+        {
+        }
         protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
         {
             base.OnElementChanged(e);

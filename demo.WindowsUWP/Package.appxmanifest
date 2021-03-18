@@ -4,41 +4,51 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   IgnorableNamespaces="uap mp">
-  <Identity Name="b6fea33b-999f-4ea8-958a-ecf381f1d309"
-            Publisher="CN=jeremy"
-            Version="1.0.0.0" />
+
+  <Identity
+    Name="0659c408-59d3-4163-956d-6375a83d211a"
+    Publisher="CN=9208f829-affe-47af-9f85-9614eaa5a3f7"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="D797990D-3AA6-4648-962C-747003223412" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>demo.WinRT</DisplayName>
-    <PublisherDisplayName>jeremy</PublisherDisplayName>
+    <DisplayName>demo.UWP</DisplayName>
+    <PublisherDisplayName>9208f829-affe-47af-9f85-9614eaa5a3f7</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
-  <mp:PhoneIdentity PhoneProductId="D797990D-3AA6-4648-962C-747003223412" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
-  
+
   <Resources>
     <Resource Language="x-generate"/>
   </Resources>
 
   <Applications>
   <Application Id="App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="demo.WinRT.App">
-        <uap:VisualElements
-            DisplayName="demo.WinRT"
-            Square150x150Logo="Assets\Logo.png"
-            Square44x44Logo="Assets\SmallLogo.png"
-            Description="demo.WinRT"
-            ForegroundText="light"
-            BackgroundColor="#464646">
-            <uap:SplashScreen Image="Assets\SplashScreen.png" />
-        </uap:VisualElements>
+      Executable="$targetnametoken$.exe"
+      EntryPoint="demo.UWP.App">
+      <uap:VisualElements
+        DisplayName="demo.UWP"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="demo.UWP"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
     </Application>
   </Applications>
+
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>

@@ -1,17 +1,14 @@
 ﻿using System;
 
 using Android.App;
-using Android.Content;
+using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using System.Security.Cryptography;
 using System.Text;
+using System.Security.Cryptography;
 using Xamarin.Forms;
-
-using Xamarin.Forms.Platform.Android;
-using Android.Content.PM;
 using System.IO;
 
 [assembly: Dependency(typeof(demo.Droid.SHA1Service))]
@@ -35,21 +32,23 @@ namespace demo.Droid
             return sb.ToString();
         }
     }
-    [Activity(Label = "demo", MainLauncher = true, Theme="@android:style/Theme.Holo.Light", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : FormsApplicationActivity
+    [Activity(Label = "demo", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
+            TabLayoutResource = Resource.Layout.Tabbar;
+            ToolbarResource = Resource.Layout.Toolbar;
 
-            Xamarin.Forms.Forms.Init(this, bundle);
-            
+            base.OnCreate(savedInstanceState);
+            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
             var sqliteFilename = "data.db3";
             string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal); // Documents folder
             var path = Path.Combine(documentsPath, sqliteFilename);
-            App.DatabasePath = path;
+            SharedApp.DatabasePath = path;
 
-            LoadApplication(new App());
+            LoadApplication(new SharedApp());
         }
     }
 }

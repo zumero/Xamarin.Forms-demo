@@ -73,7 +73,7 @@ namespace demo.Data
 	
 	public static class ZagDebugSchemaVersionCheck
 	{
-		private const string GENERATED_SIG = "78BCAEA19F8B64D32B91418C5330177A4F199913";
+		private const string GENERATED_SIG = "45D8F49EECE418BADFF877D5ED79711D8EA22C1C";
 
 		/// <summary>
 		///   Return TRUE if the database schema matches the
@@ -84,7 +84,7 @@ namespace demo.Data
 				//It would be more efficient to do this in the DataService, 
 				// and not open another connection, but
 				//I wanted to keep DataService clean of references to nonessential classes.
-				SQLiteConnection db = new SQLiteConnection(App.DatabasePath);
+				SQLiteConnection db = new SQLiteConnection(SharedApp.DatabasePath);
 				db.Query<object>("PRAGMA journal_mode=WAL");
 
 				db.Execute("PRAGMA foreign_keys=ON");

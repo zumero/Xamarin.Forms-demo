@@ -13,13 +13,13 @@ namespace demo.xaml
         public TablesPage()
         {
             InitializeComponent();
-			if (Device.OS == TargetPlatform.Windows)
+			if (Device.RuntimePlatform == Device.UWP)
                 this.Padding = new Xamarin.Forms.Thickness(this.Padding.Left, this.Padding.Top, this.Padding.Right, 95);
 			
 			ToolbarItems.Add(new ToolbarItem()
             {
                 Text = "Sync",
-				Icon = (Device.OS == TargetPlatform.WinPhone || Device.OS == TargetPlatform.Windows) ? "refresh.png" : null,
+				IconImageSource = (Device.RuntimePlatform == Device.UWP) ? "refresh.png" : null,
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(() =>
                 {
@@ -30,7 +30,7 @@ namespace demo.xaml
 			ToolbarItems.Add(new ToolbarItem()
             {
                 Text = "Revert Changes",
-				Icon = (Device.OS == TargetPlatform.WinPhone || Device.OS == TargetPlatform.Windows) ? "undo.png" : null,
+                IconImageSource = (Device.RuntimePlatform == Device.UWP) ? "undo.png" : null,
                 Order = ToolbarItemOrder.Primary,
                 Command = new Command(async () =>
                 {
@@ -40,7 +40,7 @@ namespace demo.xaml
 					{
 						try
 						{
-							DependencyService.Get<ISyncService>().RevertLocalChanges();
+							await DependencyService.Get<ISyncService>().RevertLocalChanges();
 						}
 						catch (Exception e)
 						{
