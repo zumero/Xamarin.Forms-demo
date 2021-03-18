@@ -42,7 +42,7 @@ Platforms
 ----
 
 The amount of platform-specific code is as small as possible.  The platforms 
-supported are iOS, Android and Windows Phone 8.
+supported are iOS, Android and Windows UWP.
 
 
 Zumero App Generator
