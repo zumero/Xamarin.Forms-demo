@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -175,9 +176,7 @@ namespace sample.DbDispatcher
                 },
                 workCompleted = new ManualResetEvent(false)
             };
-            if (createThreadsTask != null && createThreadsTask.IsCompleted == false)
-                createThreadsTask.Wait();
-            return _waitForCompletion(workunit, writerThread);
+            return _waitForCompletion(workunit, ChooseThread(true));
         }
 
         /// <summary>
@@ -205,9 +204,7 @@ namespace sample.DbDispatcher
                 },
                 workCompleted = new ManualResetEvent(false)
             };
-            if (createThreadsTask != null && createThreadsTask.IsCompleted == false)
-                createThreadsTask.Wait();
-            return _waitForCompletion(workunit, writerThread);
+            return _waitForCompletion(workunit, ChooseThread(true));
         }
 
         /// <summary>
@@ -237,13 +234,15 @@ namespace sample.DbDispatcher
                 },
                 workCompleted = new ManualResetEvent(false),
             };
-            if (createThreadsTask != null && createThreadsTask.IsCompleted == false)
-                createThreadsTask.Wait();
-            return _waitForCompletion(workunit, ChooseReaderThread());
+            return _waitForCompletion(workunit, ChooseThread(false));
         }
 
-        private DbThread<THandle> ChooseReaderThread()
+        private DbThread<THandle> ChooseThread(bool writeOperation)
         {
+            if (createThreadsTask != null && createThreadsTask.IsCompleted == false)
+                createThreadsTask.Wait();
+            if (writeOperation)
+                return writerThread;
             do
             {
                 bool poolIsEmpty = false;
@@ -270,15 +269,22 @@ namespace sample.DbDispatcher
             s.Start();
             if (dbThread == null)
                 throw new Exception("Database error. There is no worker pool available.");
-            while (true)
+            string operation = "Read Operation --";
+            if (dbThread == writerThread)
+                operation = "Write Operation -- ";
+            if (workunit.isSync)
+                operation = "Sync -- ";
+            var builder = new StringBuilder();
+#if DEBUG
+            var stack = new StackTrace();
+            foreach (var line in stack.GetFrames())
             {
-                lock (disposelock)
-                {
-                    if (dbThread == writerThread || writerThread == null || (writerThread.isBusy == false && writerThread.WorkQueue.Count == 0))
-                        break;
-                }
-                Task.Delay(100);
+                var decname = line.GetMethod().DeclaringType.Name;
+                builder.Append($"|{line.GetMethod().DeclaringType.Name}.{line.GetMethod().Name}|");
             }
+#endif
+            var description = $"{DateTime.UtcNow.ToString("O")}: {operation} {builder.ToString()}";
+            Debug.WriteLine($"{DateTime.UtcNow.ToString("O")} Starting {description}");
             lock (disposelock)
             {
                 dbThread.WorkQueue.Add(workunit);
@@ -287,11 +293,8 @@ namespace sample.DbDispatcher
             {
                 workunit.workCompleted.WaitOne();
                 s.Stop();
-                string operation = "Read Operation --";
-                if (dbThread == writerThread)
-                    operation = "Write Operation -- ";
-                if (workunit.isSync)
-                    operation = "Sync -- ";
+                Debug.WriteLine($"{DateTime.UtcNow.ToString("O")} Finishing {description}");
+
                 Debug.WriteLine(operation +  " Work Unit DB Time: " + workunit.dbTimeElapsed + " Waiting Time: " + s.ElapsedMilliseconds + " milliseconds.");
                 if (workunit.exception != null)
                     throw new Exception("DB operation threw an exception", workunit.exception);
