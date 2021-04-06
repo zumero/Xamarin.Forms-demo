@@ -149,7 +149,7 @@ namespace sample.DbDispatcher
         /// Perform a sync operation on the writer thread. The sync should happen in the callback Action that you provide.
         /// This is identical to a write operation EXCEPT that the DbThread will not surround the callback in a transaction.
         ///</summary>
-        public Task ExecuteSync(Action<THandle> bgTask)
+        public Task ExecuteSync(Action<THandle> bgTask, int timeoutSeconds = -1, Action timeoutElapsedCallback = null)
         {
             ThrowIfActionIsAsync(bgTask);
             var workunit = new WorkUnit<IDatabaseHandle<THandle>, int>()
@@ -175,6 +175,9 @@ namespace sample.DbDispatcher
                         return 1;
                     }
                 },
+                syncTimeout = timeoutSeconds > 0 ? timeoutSeconds : -1,
+                timeoutElapsedCallback = timeoutElapsedCallback,
+                workStarted = new ManualResetEvent(false),
                 workCompleted = new ManualResetEvent(false)
             };
             return _waitForCompletion(workunit, ChooseThread(true));
@@ -203,6 +206,7 @@ namespace sample.DbDispatcher
                     else
                         return 0;
                 },
+                workStarted = new ManualResetEvent(false),
                 workCompleted = new ManualResetEvent(false)
             };
             return _waitForCompletion(workunit, ChooseThread(true));
@@ -233,6 +237,7 @@ namespace sample.DbDispatcher
                     else
                         return default(R);
                 },
+                workStarted = new ManualResetEvent(false),
                 workCompleted = new ManualResetEvent(false),
             };
             return _waitForCompletion(workunit, ChooseThread(false));
@@ -292,7 +297,18 @@ namespace sample.DbDispatcher
             }
             return Task.Run<R>(() =>
             {
-                workunit.workCompleted.WaitOne();
+                workunit.workStarted?.WaitOne();
+                if (workunit.isSync)
+                {
+                    var completed = workunit.workCompleted.WaitOne(workunit.syncTimeout > 0 ? workunit.syncTimeout * 1000 : -1);
+                    if (completed == false)
+                    {
+                        workunit.timeoutElapsedCallback();
+                        workunit.workCompleted.WaitOne();
+                    }
+                }
+                else
+                    workunit.workCompleted.WaitOne();
                 s.Stop();
                 Debug.WriteLine($"{DateTime.UtcNow.ToString("O")} Finishing {description}");
 
@@ -340,4 +356,5 @@ namespace sample.DbDispatcher
         }
     }
 }
+
 

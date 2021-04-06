@@ -10,6 +10,7 @@ namespace sample.DbDispatcher
         internal Guid id;
         internal bool isSync = false;
         internal long dbTimeElapsed;
+        internal ManualResetEvent workStarted;
         internal ManualResetEvent workCompleted;
         internal Exception exception;
         internal bool closeCommand = false;
@@ -21,6 +22,9 @@ namespace sample.DbDispatcher
     {
         internal Func<T, R> action;
         internal R result;
+        internal int syncTimeout = -1;
+        internal Action timeoutElapsedCallback;
+
         internal override void Execute(T context)
         {
             result = action(context);
@@ -109,10 +113,12 @@ namespace sample.DbDispatcher
                                 dbContext.Dispose();
                                 dbContext = null;
                             }
+                            currentWork.workStarted?.Set();
                             currentWork.Execute(dbContext);
                         }
                         else
                         {
+                            currentWork.workStarted?.Set();
                             if (!isreadonly) dbContext.BeginTransaction();
                             currentWork.Execute(dbContext);
                             if (!isreadonly) dbContext.CommitTransaction();
@@ -176,3 +182,4 @@ namespace sample.DbDispatcher
         }
     }
 }
+

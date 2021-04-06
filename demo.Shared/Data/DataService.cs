@@ -22,7 +22,11 @@ namespace demo.Data
 
         Task<bool> IsEmpty();
         Task<string> DescribeSync(int syncid);
-        Task<int> Sync(SyncParams syncParams, ZumeroClient.callback_progress_handler callback);
+        /** <summary></summary>
+         * <param name="timeoutSeconds">The number of seconds to wait before automatically calling ZumeroClient.Cancel. Cancelling does not 
+         * work on Android, since there is no mechanism to cancel an HTTP request on Android.</param>
+         */
+        Task<int> Sync(SyncParams syncParams, ZumeroClient.callback_progress_handler callback, int timeoutSeconds = -1);
         void CreateConnections();
         void CloseConnections();
         Task<SyncParams> LoadSyncParams();
@@ -207,17 +211,27 @@ namespace demo.Data
 
         }
 
-        public async Task<int> Sync(SyncParams syncParams, ZumeroClient.callback_progress_handler callback)
+        public async Task<int> Sync(SyncParams syncParams, ZumeroClient.callback_progress_handler callback, int timeoutSeconds = -1)
         {
             int syncid = -1;
+            int cancellationToken = 0;
+            ZumeroClient.callback_progress_handler wrapperCallback = (int cancellation_token, int phase, ulong bytesSoFar, ulong bytesTotal) =>
+            {
+                cancellationToken = cancellation_token;
+                callback?.Invoke(cancellation_token, phase, bytesSoFar, bytesTotal);
+            };
             await Dispatcher.ExecuteSync(_ =>
             {
 
                 string jsOptions = "{\"sync_details\":true}";
                 if (syncParams.SendAuth)
-                    ZumeroClient.Sync(Dispatcher.GetDatabasePath(), null, syncParams.URL, syncParams.DBFile, syncParams.Scheme, syncParams.User, syncParams.Password, jsOptions, out syncid, callback);
+                    ZumeroClient.Sync(Dispatcher.GetDatabasePath(), null, syncParams.URL, syncParams.DBFile, syncParams.Scheme, syncParams.User, syncParams.Password, jsOptions, out syncid, wrapperCallback);
                 else
-                    ZumeroClient.Sync(Dispatcher.GetDatabasePath(), null, syncParams.URL, syncParams.DBFile, null, null, null, jsOptions, out syncid, callback);
+                    ZumeroClient.Sync(Dispatcher.GetDatabasePath(), null, syncParams.URL, syncParams.DBFile, null, null, null, jsOptions, out syncid, wrapperCallback);
+            }, timeoutSeconds, () =>
+            {
+                //If the timeout elapses, cancel the sync.
+                ZumeroClient.Cancel(cancellationToken);
             });
             return syncid;
         }
