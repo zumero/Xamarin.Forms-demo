@@ -62,12 +62,14 @@ namespace sample.DbDispatcher
             isBusy = true;
             bool fullstop = false;
             WorkUnit<IDatabaseHandle<THandle>> currentWork = null;
+            WorkUnit<IDatabaseHandle<THandle>> retry = null;
             Stopwatch s = new Stopwatch();
 
             //Wait a random number of milliseconds, to give everyone else a chance to finish setting up.
             //That reduces the chance that there will be a hang trying to connect 4 different threads
             //simultaneously.
             var r = new Random(DateTime.Now.Millisecond);
+            int retryCount = 0, maxRetries = 5;
             while (!fullstop)
             {
                 try
@@ -87,7 +89,11 @@ namespace sample.DbDispatcher
                         }
                         s.Reset();
                         isBusy = false;
-                        currentWork = WorkQueue.Take();
+                        if (retry == null)
+                            currentWork = WorkQueue.Take();
+                        else
+                            currentWork = retry;
+                        retry = null;
                         isBusy = true;
                         if (currentWork.closeCommand == true)
                         {
@@ -130,15 +136,20 @@ namespace sample.DbDispatcher
                     if (!shuttingDown)
                     {
                         Debug.Write(e.ToString());
-                        if (currentWork != null)
+                        if (dbContext?.ShouldRetry(e) == true && retryCount < maxRetries)
+                        {
+                            Debug.Write("retry requested");
+                            retry = currentWork;
+                        }
+                        else if (currentWork != null)
                         {
                             currentWork.exception = e;
                             currentWork.workCompleted.Set();
                         }
                     }
                 }
+                retryCount = retry == null ? 0 : retryCount+1;
             }
-
             dbContext.CloseConnection();
             dbContext.Dispose();
             WorkQueue.Dispose();

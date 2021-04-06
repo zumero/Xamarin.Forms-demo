@@ -1,6 +1,7 @@
 using SQLite;
 using System;
 using System.Runtime.CompilerServices;
+using Zumero;
 
 namespace sample.DbDispatcher
 {
@@ -85,6 +86,18 @@ namespace sample.DbDispatcher
                 throw new Exception("Attempted to save changes on a read-only connection");
             else
                 return 1;
+        }
+
+        public bool ShouldRetry(Exception e)
+        {
+            //Busy results should be retried.
+            var sqlException = e as SQLiteException;
+            if (sqlException != null && (sqlException.Result == SQLite3.Result.Busy || sqlException.Result == SQLite3.Result.Locked))
+                return true;
+            var zException = e as ZumeroException;
+            if (zException != null && (zException.ErrorCode == (int)SQLite3.Result.Busy || zException.ErrorCode == (int)SQLite3.Result.Locked))
+                return true;
+            return false;
         }
     }
     public class SqliteNetPclFactory : IDbFactory<SQLiteConnection>

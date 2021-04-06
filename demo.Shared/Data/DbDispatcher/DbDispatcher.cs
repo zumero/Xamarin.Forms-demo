@@ -24,6 +24,7 @@ namespace sample.DbDispatcher
     public interface IDatabaseHandle<T> : IDatabaseHandle
     {
         T GetHandle();
+        bool ShouldRetry(Exception e);
     }
     public interface IDbFactory<THandle>
     {
