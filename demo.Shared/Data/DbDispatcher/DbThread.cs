@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Text;
 using System.Threading;
 
 namespace sample.DbDispatcher
@@ -14,6 +15,22 @@ namespace sample.DbDispatcher
         internal ManualResetEvent workCompleted;
         internal Exception exception;
         internal bool closeCommand = false;
+        public WorkUnit()
+        {
+            var builder = new StringBuilder();
+#if DEBUG
+            var stack = new StackTrace();
+            foreach (var line in stack.GetFrames())
+            {
+                var decname = line.GetMethod().DeclaringType.Name;
+                builder.Append($"|{line.GetMethod().DeclaringType.Name}.{line.GetMethod().Name}|");
+            }
+#endif
+            description = $"{DateTime.UtcNow.ToString("O")}: {builder.ToString()}";
+        }
+
+        public string description { get; }
+
         internal virtual void Execute(T context)
         {
         }

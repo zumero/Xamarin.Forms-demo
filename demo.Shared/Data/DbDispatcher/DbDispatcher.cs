@@ -280,17 +280,8 @@ namespace sample.DbDispatcher
                 operation = "Write Operation -- ";
             if (workunit.isSync)
                 operation = "Sync -- ";
-            var builder = new StringBuilder();
-#if DEBUG
-            var stack = new StackTrace();
-            foreach (var line in stack.GetFrames())
-            {
-                var decname = line.GetMethod().DeclaringType.Name;
-                builder.Append($"|{line.GetMethod().DeclaringType.Name}.{line.GetMethod().Name}|");
-            }
-#endif
-            var description = $"{DateTime.UtcNow.ToString("O")}: {operation} {builder.ToString()}";
-            Debug.WriteLine($"{DateTime.UtcNow.ToString("O")} Starting {description}");
+
+            Debug.WriteLine($"{DateTime.UtcNow.ToString("O")} Starting {operation} {workunit.description}");
             lock (disposelock)
             {
                 dbThread.WorkQueue.Add(workunit);
@@ -310,7 +301,7 @@ namespace sample.DbDispatcher
                 else
                     workunit.workCompleted.WaitOne();
                 s.Stop();
-                Debug.WriteLine($"{DateTime.UtcNow.ToString("O")} Finishing {description}");
+                Debug.WriteLine($"{DateTime.UtcNow.ToString("O")} Finishing {workunit.description}");
 
                 Debug.WriteLine(operation +  " Work Unit DB Time: " + workunit.dbTimeElapsed + " Waiting Time: " + s.ElapsedMilliseconds + " milliseconds.");
                 if (workunit.exception != null)
